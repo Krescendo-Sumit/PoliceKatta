@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="police.bharti.katta">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/pbk_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/pbk_logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PoliceBhartiKatta"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".view.saravmenu.SingleSaravQuestionView"></activity>
+        <activity android:name=".view.testserise.TestSeriesResult" />
+        <activity android:name=".view.livetest.LiveTestQuestion" />
+        <activity android:name=".view.livetest.LiveTestList" />
+        <activity android:name=".view.onlineclass.ViewVideo" />
+        <activity android:name=".view.onlineclass.VideoList" />
+        <activity android:name=".view.onlineclass.BatchMaster" />
+        <activity android:name=".view.magilprashnapatrika.MagilPrashnPatrika" />
+        <activity android:name=".view.mahatvacyanotes.ImportantItemList" />
+        <activity android:name=".view.mahatvacyanotes.ImportantNotesMenuList" />
+        <activity
+            android:name=".view.testserise.TestSeriesPaper"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.testserise.TestMasterMenu"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.testserise.TestSeriesQuestions"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.yashogatha.YashogathaView" />
+        <activity android:name=".view.pdfviewer.PDFViewForEBook" />
+        <activity android:name=".view.e_book.EBookView" />
+        <activity
+            android:name=".view.saravmenu.SaravQuestions"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.pdfviewer.PDFFileViewer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.pustakkharedi.PustakKharedi"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.chalughadamodi.ChaluGhadamodiMenu"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.saravmenu.ListOfSaravMenu"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.bhartidetailsmenu.BhartiDetailsIndivisual"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.bhartidetails.BhartiDetailsList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.listofbharti.ListOfBharti"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HomeScreen"
+            android:label="@string/title_activity_home_screen"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PoliceBhartiKatta.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

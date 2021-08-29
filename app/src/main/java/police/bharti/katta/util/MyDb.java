@@ -135,6 +135,45 @@ public class MyDb extends SQLiteOpenHelper {
     }
 
 
+    public boolean insertMaster(String query) {
+
+        SQLiteDatabase mydb = null;
+        try {
+            removeMaster("Delete from tbl_saravprashn_master");
+            mydb = this.getReadableDatabase();
+            String q = query;
+            Log.i("Query is -------> ", "" + q);
+            mydb.execSQL(q);
+            Log.i("Query is -------> Done ", "" + q);
+            return true;
+        } catch (Exception e) {
+            Log.i("Error is Add User", "" + e.getMessage());
+            return false;
+        } finally {
+            mydb.close();
+        }
+
+    }
+
+    public boolean removeMaster(String query) {
+
+        SQLiteDatabase mydb = null;
+        try {
+            mydb = this.getReadableDatabase();
+            String q = query;
+            Log.i("Query is -------> ", "" + q);
+            mydb.execSQL(q);
+            Log.i("Query is -------> Done ", "" + q);
+            return true;
+        } catch (Exception e) {
+            Log.i("Error is Add User", "" + e.getMessage());
+            return false;
+        } finally {
+            mydb.close();
+        }
+
+    }
+
     public Vector getSarav() {
         SQLiteDatabase mydb = null;
         String k = "";
@@ -168,6 +207,7 @@ public class MyDb extends SQLiteOpenHelper {
         ArrayList<SaravMenuModel> list = new ArrayList<SaravMenuModel>();
         int i = 0;
         try {
+
             mydb = this.getReadableDatabase();
             String q = "SELECT  * FROM tbl_saravprashn_master";
             Cursor c = mydb.rawQuery(q, null);
@@ -175,7 +215,7 @@ public class MyDb extends SQLiteOpenHelper {
                 ++i;
             }
             SaravMenuModel s = null;
-            c.moveToFirst();
+            c= mydb.rawQuery(q, null);
             while (c.moveToNext()) {
                 s = new SaravMenuModel();
                 s.setId(c.getString(0).trim());
@@ -215,13 +255,13 @@ public class MyDb extends SQLiteOpenHelper {
         int i = 0;
         try {
             mydb = this.getReadableDatabase();
-            String q = "SELECT  * FROM tbl_sarav_question3 where saravid="+id;
+            String q = "SELECT  * FROM tbl_sarav_question3 where saravid="+id+" order by id desc";
             Cursor c = mydb.rawQuery(q, null);
             while (c.moveToNext()) {
                 i++;
             }
             SaravQuestionModel s = null;
-            c.moveToFirst();
+            c= mydb.rawQuery(q, null);
             while (c.moveToNext()) {
                 s = new SaravQuestionModel();
                 s.setId(c.getString(0).trim());

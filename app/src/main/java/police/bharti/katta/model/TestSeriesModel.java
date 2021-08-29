@@ -86,5 +86,13 @@ public class TestSeriesModel {
 
     String rate;
 
+    public String getActive_status() {
+        return active_status;
+    }
 
+    public void setActive_status(String active_status) {
+        this.active_status = active_status;
+    }
+
+    String active_status;
 }

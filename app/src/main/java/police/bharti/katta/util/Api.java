@@ -38,10 +38,10 @@ public interface Api {
     Call<List<BhartiModel>> getBhartiMenuDetails(@Query("mobile") String mobile,@Query("id")String id,@Query("type")String type);
 
     @POST(Constants.SARAV_MENU_URL)
-    Call<List<SaravMenuModel>> getSaravMenu(@Body JSONObject jsonObject);
+    Call<List<SaravMenuModel>> getSaravMenu(@Query("mobile") String mobile,@Query("id")String id,@Query("type")String type);
 
     @POST(Constants.TEST_SERIES_MASTER_MENU)
-    Call<List<TestSeriesModel>> getTestMenu(@Body JSONObject jsonObject);
+    Call<List<TestSeriesModel>> getTestMenu(@Query("mobile") String mobile);
 
     @POST(Constants.BATCH_MASTER)
     Call<List<VideoBatchModel>> getBatchMaster(@Query("mobile") String mobile);

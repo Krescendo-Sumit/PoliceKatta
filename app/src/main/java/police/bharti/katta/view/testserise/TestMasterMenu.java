@@ -22,6 +22,7 @@ import police.bharti.katta.adapter.SaravMenuAdapter;
 import police.bharti.katta.adapter.TestSeriesMasterAdapter;
 import police.bharti.katta.model.SaravMenuModel;
 import police.bharti.katta.model.TestSeriesModel;
+import police.bharti.katta.util.Preferences;
 import police.bharti.katta.util.RetrofitClient;
 import police.bharti.katta.view.saravmenu.ListOfSaravMenu;
 import retrofit2.Call;
@@ -81,8 +82,8 @@ public class TestMasterMenu extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("mobile", "9420329047");
 
-
-            Call<List<TestSeriesModel>> call = RetrofitClient.getInstance().getMyApi().getTestMenu(jsonObject);
+            String mobile = Preferences.get(context, Preferences.USER_MOBILE);
+            Call<List<TestSeriesModel>> call = RetrofitClient.getInstance().getMyApi().getTestMenu(mobile);
             call.enqueue(new Callback<List<TestSeriesModel>>() {
                 @Override
                 public void onResponse(Call<List<TestSeriesModel>> call, Response<List<TestSeriesModel>> response) {

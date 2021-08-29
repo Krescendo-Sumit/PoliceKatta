@@ -24,6 +24,7 @@ import police.bharti.katta.adapter.SaravMenuAdapter;
 import police.bharti.katta.model.BhartiModel;
 import police.bharti.katta.model.SaravMenuModel;
 import police.bharti.katta.util.MyDb;
+import police.bharti.katta.util.Preferences;
 import police.bharti.katta.util.RetrofitClient;
 import police.bharti.katta.view.listofbharti.ListOfBharti;
 import retrofit2.Call;
@@ -54,12 +55,23 @@ public class ListOfSaravMenu extends AppCompatActivity {
         progressDialog.setMessage("प्रतिक्षा करा..");
         rc_listofsaravmenu.setLayoutManager(mManager);
         setTitle("सराव संच");
-        getMenuList();
+
         s = new MyDb(context).getSaravMaster();
-        if (s.size() == 0) {
+        if (s.size() > 0) {
 
             localStatus = 1;
+            showRecords(s);
+        }else
+        {
+            getMenuList("0");
         }
+
+
+        /*else
+        {
+            SaravMenuModel model=(SaravMenuModel)s.get(0);
+            getMenuList(model.getId());
+        }*/
     }
 
     @Override
@@ -78,17 +90,17 @@ public class ListOfSaravMenu extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getMenuList() {
+    private void getMenuList(String index) {
 
         try {
             if (!progressDialog.isShowing())
                 progressDialog.show();
 
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("mobile", "9420329047");
+            String mobile = Preferences.get(context, Preferences.USER_MOBILE);
+            String id = Preferences.get(context, Preferences.SELECTEDSARAVID);
+            String type = index;
 
-
-            Call<List<SaravMenuModel>> call = RetrofitClient.getInstance().getMyApi().getSaravMenu(jsonObject);
+            Call<List<SaravMenuModel>> call = RetrofitClient.getInstance().getMyApi().getSaravMenu(mobile, id, type);
             call.enqueue(new Callback<List<SaravMenuModel>>() {
                 @Override
                 public void onResponse(Call<List<SaravMenuModel>> call, Response<List<SaravMenuModel>> response) {
@@ -106,14 +118,14 @@ public class ListOfSaravMenu extends AppCompatActivity {
 
 
                             Toast.makeText(ListOfSaravMenu.this, "s =" + s.size() + "  live " + saravMenuModels.size(), Toast.LENGTH_SHORT).show();
-                            if (localStatus == 1) {
+                       /*     if (localStatus == 1) {
                                 insertRecords();
                             } else if (s.size()+1 < saravMenuModels.size()) {
                                 insertRecords();
                             } else {
                                 showRecords(s);
-                            }
-
+                            }*/
+                            insertRecords();
 
                         } catch (NullPointerException e) {
                             Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -121,7 +133,7 @@ public class ListOfSaravMenu extends AppCompatActivity {
                             Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     } else {
-                        Toast.makeText(ListOfSaravMenu.this, "माहिती उपलब्ध नाही.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ListOfSaravMenu.this, "नवीन संच उपलब्ध नाही.", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -158,10 +170,10 @@ public class ListOfSaravMenu extends AppCompatActivity {
                 s = s.substring(0, s.length() - 1);
                 Log.i("Data is ", data + "\n" + s);
 
-                if (new MyDb(context).insertQuestion(s)) {
-                    Toast.makeText(context, "Record Inserted", Toast.LENGTH_SHORT).show();
+                if (new MyDb(context).insertMaster(s)) {
+                    Toast.makeText(context, "नवीन संच जतन झाला.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Getting Error to Insert Bulk Records", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Something went wrong.", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -174,7 +186,9 @@ public class ListOfSaravMenu extends AppCompatActivity {
     }
 
     public void showquery(View view) {
-        insertRecords();
+       // insertRecords();
+        SaravMenuModel model=(SaravMenuModel)s.get(0);
+        getMenuList(model.getId());
     }
 
     public void showrecordinlist(View v) {

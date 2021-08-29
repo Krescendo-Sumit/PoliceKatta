@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PoliceBhartiKatta"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.saravmenu.SingleSaravQuestionView"></activity>
+        <activity android:name=".view.testserise.CouponCodeActivity"></activity>
+        <activity android:name=".view.saravmenu.SingleSaravQuestionView" />
         <activity android:name=".view.testserise.TestSeriesResult" />
         <activity android:name=".view.livetest.LiveTestQuestion" />
         <activity android:name=".view.livetest.LiveTestList" />

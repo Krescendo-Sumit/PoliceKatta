@@ -111,13 +111,23 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
 
             }
         }
-        getMenuList();
+
 
         saa = new MyDb(context).getSaravQuestions(Preferences.get(context, Preferences.SELECTEDSARAVID));
         if (saa.size() == 0) {
             localStatus = 1;
+            getMenuList("0");
+        }else
+        {
+            showRecords(saa);
         }
-        Toast.makeText(context, "Local Status is "+localStatus, Toast.LENGTH_SHORT).show();
+
+        /*else
+        {
+            SaravQuestionModel model=(SaravQuestionModel)saa.get(0);
+            getMenuList(model.getId().toString());
+        }*/
+       // Toast.makeText(context, "Local Status is "+localStatus, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -136,14 +146,14 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
         return super.onOptionsItemSelected(item);
     }
 
-    private void getMenuList() {
+    private void getMenuList(String index) {
         try {
             if (!progressDialog.isShowing())
                 progressDialog.show();
 
             String mobile = Preferences.get(context, Preferences.USER_MOBILE);
             String id = Preferences.get(context, Preferences.SELECTEDSARAVID);
-            String type = "1";
+            String type = index;
 
             Call<List<SaravQuestionModel>> call = RetrofitClient.getInstance().getMyApi().getSaravQuestions(mobile, id, type);
             call.enqueue(new Callback<List<SaravQuestionModel>>() {
@@ -157,16 +167,23 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
                         saravMenuModels = response.body();
                         try {
                             //   Toast.makeText(TestSeriesQuestions.this, "Total Questions : "+saravMenuModels.size(), Toast.LENGTH_SHORT).show();
-                            addQuestionInList(saravMenuModels);
+                          //  addQuestionInList(saravMenuModels);
 
-                            Toast.makeText(context, "s =" + saa.size() + "  live " + saravMenuModels.size(), Toast.LENGTH_SHORT).show();
-                            if (localStatus == 1) {
+                         //   Toast.makeText(context, "s =" + saa.size() + "  live " + saravMenuModels.size(), Toast.LENGTH_SHORT).show();
+                            insertRecords();
+                       /*     if (localStatus == 1) {
                                 insertRecords();
+                                addQuestionInList(saravMenuModels);
+
                             } else if (saa.size()+1 < saravMenuModels.size()) {
                                 insertRecords();
+                                addQuestionInList(saravMenuModels);
+
                             } else {
                                 showRecords(saa);
-                            }
+                                addQuestionInList(saravMenuModels);
+
+                            }*/
 
 
                             // list_question=saravMenuModels;
@@ -177,7 +194,7 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
                             Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     } else {
-                        Toast.makeText(context, "माहिती उपलब्ध नाही.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "नवीन प्रश्न उपलब्ध नाही.", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -203,7 +220,7 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
 
             ArrayList sa = s;
             if (sa != null) {
-                Toast.makeText(context, "" + sa.size(), Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(context, "" + sa.size(), Toast.LENGTH_SHORT).show();
                 addQuestionInList(sa);
 
             }
@@ -675,7 +692,10 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
 
 
     public void showquery(View view) {
-        insertRecords();
+        SaravQuestionModel model=(SaravQuestionModel)saa.get(0);
+        getMenuList(model.getId().toString());
+
+
     }
 
     private void insertRecords() {

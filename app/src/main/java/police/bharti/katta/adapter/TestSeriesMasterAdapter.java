@@ -27,21 +27,24 @@ import police.bharti.katta.model.TestSeriesModel;
 import police.bharti.katta.util.Constants;
 import police.bharti.katta.util.Preferences;
 import police.bharti.katta.view.saravmenu.SaravQuestions;
+import police.bharti.katta.view.testserise.CouponCodeActivity;
 import police.bharti.katta.view.testserise.TestSeriesPaper;
 
-public class TestSeriesMasterAdapter extends  RecyclerView.Adapter<TestSeriesMasterAdapter.DataObjectHolder> {
+public class TestSeriesMasterAdapter extends RecyclerView.Adapter<TestSeriesMasterAdapter.DataObjectHolder> {
     Context context;
 
     private static final int UNSELECTED = -1;
 
-    ArrayList<TestSeriesModel> bhartiModelArrayList=null;
+    ArrayList<TestSeriesModel> bhartiModelArrayList = null;
+
     public interface EventListener {
         void onDelete(int trid, int position);
     }
+
     public TestSeriesMasterAdapter(ArrayList<TestSeriesModel> productModels, Context context) {
 
         this.bhartiModelArrayList = productModels;
-        Log.i("Seller produ:",">>"+productModels.size());
+        Log.i("Seller produ:", ">>" + productModels.size());
         this.context = context;
 
     }
@@ -54,7 +57,6 @@ public class TestSeriesMasterAdapter extends  RecyclerView.Adapter<TestSeriesMas
 
         return new TestSeriesMasterAdapter.DataObjectHolder(view);
     }
-
 
 
     @Override
@@ -77,17 +79,15 @@ public class TestSeriesMasterAdapter extends  RecyclerView.Adapter<TestSeriesMas
     }
 
 
-
-
     @Override
     public void onBindViewHolder(final TestSeriesMasterAdapter.DataObjectHolder holder, final int position) {
         try {
-            TestSeriesModel saravMenuModel=bhartiModelArrayList.get(position);
+            TestSeriesModel saravMenuModel = bhartiModelArrayList.get(position);
             holder.price.setText(saravMenuModel.getTitle());
             //holder.txt_details.setText(saravMenuModel.get());
 
-            String url= Constants.BASE_URL+saravMenuModel.getImagepath();
-            String serverpath = Constants.BASE_URL+"no-image.png";
+            String url = Constants.BASE_URL + saravMenuModel.getImagepath();
+            String serverpath = Constants.BASE_URL + "no-image.png";
             // Log.i("DefaultPath",serverpath);
             String data = "<html><head><meta name=\"viewport\"\"content=\"width='100%', initial-scale=0.65 \" /></head>";
             data = data + "<body><center>" +
@@ -103,25 +103,29 @@ public class TestSeriesMasterAdapter extends  RecyclerView.Adapter<TestSeriesMas
                 @Override
                 public void onClick(View v) {
 
-                 //    Toast.makeText(context, ""+saravMenuModel.getId(), Toast.LENGTH_SHORT).show();
-                    Preferences.save(context,Preferences.SELECTEDTESTMENU,saravMenuModel.getId());
-                    Intent intent=new Intent(context, TestSeriesPaper.class);
-                    context.startActivity(intent);
-
+                    //    Toast.makeText(context, ""+saravMenuModel.getId(), Toast.LENGTH_SHORT).show();
+                    Preferences.save(context, Preferences.SELECTEDTESTMENU, saravMenuModel.getId());
+                    if (Integer.parseInt(saravMenuModel.getActive_status()) > 0) {
+                        Intent intent = new Intent(context, TestSeriesPaper.class);
+                        context.startActivity(intent);
+                    } else {
+                      //  Toast.makeText(context, "Please purchase this test.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, CouponCodeActivity.class);
+                        context.startActivity(intent);
+                    }
                 }
             });
 
             holder.txt_nofq.setText(saravMenuModel.getNoofq());
-            holder.txt_rate.setText("Purchase In Just \n Rs."+saravMenuModel.getRate());
-
-        }catch(Exception e)
-        {
-            Log.i("Error ",e.getMessage());
+            if (Integer.parseInt(saravMenuModel.getActive_status()) > 0) {
+                holder.txt_rate.setText("पुढे जा.");
+            } else {
+                holder.txt_rate.setText("Purchase In Just \n Rs." + saravMenuModel.getRate());
+            }
+        } catch (Exception e) {
+            Log.i("Error ", e.getMessage());
         }
     }
-
-
-
 
 
     public class DataObjectHolder extends RecyclerView.ViewHolder {
@@ -129,16 +133,17 @@ public class TestSeriesMasterAdapter extends  RecyclerView.Adapter<TestSeriesMas
         ImageView imageView;
         LinearLayout ll;
         WebView img_web;
-        TextView txt_rate,txt_nofq;
+        TextView txt_rate, txt_nofq;
+
         public DataObjectHolder(View itemView) {
             super(itemView);
             price = (TextView) itemView.findViewById(R.id.txt_title);
-            imageView=(ImageView)itemView.findViewById(R.id.img_bhartilogo);
-            txt_details= (TextView) itemView.findViewById(R.id.txt_details);
-            ll=(LinearLayout)itemView.findViewById(R.id.ll);
-            img_web=(WebView) itemView.findViewById(R.id.img_web);
-            txt_rate= (TextView) itemView.findViewById(R.id.txt_rate);
-                    txt_nofq= (TextView) itemView.findViewById(R.id.txt_nofq);
+            imageView = (ImageView) itemView.findViewById(R.id.img_bhartilogo);
+            txt_details = (TextView) itemView.findViewById(R.id.txt_details);
+            ll = (LinearLayout) itemView.findViewById(R.id.ll);
+            img_web = (WebView) itemView.findViewById(R.id.img_web);
+            txt_rate = (TextView) itemView.findViewById(R.id.txt_rate);
+            txt_nofq = (TextView) itemView.findViewById(R.id.txt_nofq);
         }
     }
 

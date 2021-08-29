@@ -729,7 +729,6 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
             if (saravMenuModels != null) {
                 Toast.makeText(context, "" + sa.size(), Toast.LENGTH_SHORT).show();
                 addQuestionInList(sa);
-
             }
 
         } catch (Exception r) {

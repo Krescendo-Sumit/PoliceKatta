@@ -3,6 +3,7 @@ package police.bharti.katta.adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.text.Html;
@@ -32,6 +33,8 @@ import police.bharti.katta.model.ChaluGhadamodiModel;
 import police.bharti.katta.util.Constants;
 import police.bharti.katta.util.Preferences;
 import police.bharti.katta.view.bhartidetails.BhartiDetailsList;
+import police.bharti.katta.view.pdfviewer.PDFFileViewer;
+import police.bharti.katta.view.pdfviewer.PDFViewForEBook;
 
 public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.DataObjectHolder> {
     Context context;
@@ -55,7 +58,7 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.DataObjectH
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_books, parent, false);
+                .inflate(R.layout.card_books_kharedi, parent, false);
 
         return new DataObjectHolder(view);
     }
@@ -74,16 +77,8 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.DataObjectH
 
     @Override
     public int getItemCount() {
-        //  if (mSellerProductlist.size() > 0) {
-        return bhartiModelArrayList.size();
-        //} else {
-        //  return 0;
-        // }
+             return bhartiModelArrayList.size();
     }
-
-
-
-
     @Override
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
         try {
@@ -94,9 +89,6 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.DataObjectH
             holder.txt_price.setText(Html.fromHtml("<b>किंमत :</b>"+bookModel.getPrice()));
             holder.txt_pages.setText(Html.fromHtml("<b>एकूण पाने  :</b>"+bookModel.getPages()));
             holder.txt_discountprice.setText(Html.fromHtml("<b>Discount Price :</b>"+bookModel.getDiscountprize()));
-
-
-
             String url= Constants.BASE_URL+bookModel.getImagepath();
             String serverpath = Constants.BASE_URL+"no-image.png";
             Log.i("DefaultPath",url);
@@ -109,12 +101,25 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.DataObjectH
             holder.img_web.getSettings().setJavaScriptEnabled(true);
             holder.img_web.loadData(data, "text/html", "UTF-8");
 
+            holder.btn_buy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(bookModel.getLink()!=null) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(bookModel.getLink()));
+                        context.startActivity(browserIntent);
+                    }else
+                    {
+                        Toast.makeText(context, "Link not available.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
             holder.ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     // Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
-            /*        Preferences.save(context,Preferences.SELECTEDCHALUGHADAMODIID,bookModel.getId());
+            /*      Preferences.save(context,Preferences.SELECTEDCHALUGHADAMODIID,bookModel.getId());
                     Intent intent=new Intent(context, BhartiDetailsList.class);
                     context.startActivity(intent);*/
                     Dialog dialog=new Dialog(context);
@@ -149,6 +154,30 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.DataObjectH
                 }
             });
 
+           // holder.txt_title2.setTextColor(Color.RED);
+            holder.txt_title2.setText("View Sample Book");
+            holder.txt_title2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String fn=bookModel.getFname();
+                    String d=fn.substring(fn.lastIndexOf("/")+1,fn.length());
+                    if(d!=null) {
+
+                        if(d.trim().equals(""))
+                        {
+                            Toast.makeText(context, "File Missing.", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Intent intent = new Intent(context, PDFFileViewer.class);
+                            intent.putExtra("fname", bookModel.getFname());
+                            context.startActivity(intent);
+                        }
+                    }else
+                    {
+                        Toast.makeText(context, "File Missing.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
         }catch(Exception e)
         {
             Log.i("Error ",e.getMessage());
@@ -165,6 +194,8 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.DataObjectH
         LinearLayout ll;
         WebView img_web;
         TextView txt_price,txt_writer,txt_discountprice,txt_pages;
+        TextView txt_title2;
+        Button btn_buy;
         public DataObjectHolder(View itemView) {
             super(itemView);
             price = (TextView) itemView.findViewById(R.id.txt_title);
@@ -173,9 +204,11 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.DataObjectH
             ll=(LinearLayout)itemView.findViewById(R.id.ll);
             img_web=(WebView) itemView.findViewById(R.id.img_web);
             txt_price=itemView.findViewById(R.id.txt_price);
-                    txt_writer=itemView.findViewById(R.id.txt_writer);
+            txt_writer=itemView.findViewById(R.id.txt_writer);
             txt_discountprice=itemView.findViewById(R.id.txt_discountprize);
             txt_pages=itemView.findViewById(R.id.txt_pages);
+            txt_title2=itemView.findViewById(R.id.txt_title2);
+            btn_buy=itemView.findViewById(R.id.btn_buy);
 
 
         }

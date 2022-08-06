@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -84,11 +87,22 @@ public class EBookAdapter  extends  RecyclerView.Adapter<EBookAdapter.DataObject
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
         try {
             EBookModel bookModel=bhartiModelArrayList.get(position);
+            Log.i("writer ",bookModel.getWriter());
             holder.price.setText(bookModel.getTitle());
+            holder.txt_writer.setText(Html.fromHtml("<b>लेखक :</b>"+bookModel.getWriter()));
 
-            String url= Constants.BASE_URL+bookModel.getImagepath();
+            holder.txt_pages.setText(Html.fromHtml("<b>एकूण पाने  :</b>"+bookModel.getPages()));
+            if(bookModel.getActive_status()>0)
+            {
+                holder.ll.setBackgroundResource(R.drawable.bg_overlay);
+            }else {
+                holder.txt_discountprice.setText(Html.fromHtml("<b>Discount Price :</b>" + bookModel.getDiscountprize()));
+                holder.txt_price.setText(Html.fromHtml("<b>किंमत :</b>" + bookModel.getRate()));
+
+
+            }String url= Constants.BASE_URL+bookModel.getImagepath();
             String serverpath = Constants.BASE_URL+"no-image.png";
-             Log.i("DefaultPath",url);
+            Log.i("DefaultPath",url);
             String data = "<html><head><meta name=\"viewport\"\"content=\"width='100%', initial-scale=0.65 \" /></head>";
             data = data + "<body><center>" +
                     "<img width=\"100%\" height='150px' src=\"" + url + "\" " +
@@ -97,6 +111,40 @@ public class EBookAdapter  extends  RecyclerView.Adapter<EBookAdapter.DataObject
                     "</center></body></html>";
             holder.img_web.getSettings().setJavaScriptEnabled(true);
             holder.img_web.loadData(data, "text/html", "UTF-8");
+            if(bookModel.getActive_status()>0)
+                holder.btn_buy.setVisibility(View.GONE);
+            holder.btn_buy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(bookModel.getActive_status()>0) {
+
+                        String fn=bookModel.getFilepath();
+                        String d=fn.substring(fn.lastIndexOf("/")+1,fn.length());
+
+                        if(d!=null) {
+
+                            if(d.trim().equals(""))
+                            {
+                                Toast.makeText(context, "File Missing.", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Intent intent = new Intent(context, PDFViewForEBook.class);
+                                intent.putExtra("fname", bookModel.getFilepath());
+                                context.startActivity(intent);
+                            }
+                        }else
+                        {
+                            Toast.makeText(context, "File Missing.", Toast.LENGTH_SHORT).show();
+                        }
+                    }else
+                    {
+                        Toast.makeText(context, "Purchase this book.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
+
+
             holder.ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -105,10 +153,30 @@ public class EBookAdapter  extends  RecyclerView.Adapter<EBookAdapter.DataObject
             /*        Preferences.save(context,Preferences.SELECTEDCHALUGHADAMODIID,bookModel.getId());
                     Intent intent=new Intent(context, BhartiDetailsList.class);
                     context.startActivity(intent);*/
-                    Intent intent=new Intent(context, PDFViewForEBook.class);
-                    intent.putExtra("fname",bookModel.getFilepath());
-                    context.startActivity(intent);
 
+                   if(bookModel.getActive_status()>0) {
+
+                       String fn=bookModel.getFilepath();
+                       String d=fn.substring(fn.lastIndexOf("/")+1,fn.length());
+
+                       if(d!=null) {
+
+                          if(d.trim().equals(""))
+                          {
+                              Toast.makeText(context, "File Missing.", Toast.LENGTH_SHORT).show();
+                          }else {
+                              Intent intent = new Intent(context, PDFViewForEBook.class);
+                              intent.putExtra("fname", bookModel.getFilepath());
+                              context.startActivity(intent);
+                          }
+                       }else
+                       {
+                           Toast.makeText(context, "File Missing.", Toast.LENGTH_SHORT).show();
+                       }
+                   }else
+                   {
+                       Toast.makeText(context, "Purchase this book.", Toast.LENGTH_SHORT).show();
+                   }
                 }
             });
             holder.txt_rate.setText(""+bookModel.getRate());
@@ -128,6 +196,8 @@ public class EBookAdapter  extends  RecyclerView.Adapter<EBookAdapter.DataObject
         LinearLayout ll;
         WebView img_web;
         TextView txt_rate;
+        TextView txt_price,txt_writer,txt_discountprice,txt_pages;
+        Button btn_buy;
         public DataObjectHolder(View itemView) {
             super(itemView);
             price = (TextView) itemView.findViewById(R.id.txt_title);
@@ -135,6 +205,11 @@ public class EBookAdapter  extends  RecyclerView.Adapter<EBookAdapter.DataObject
             imageView=(ImageView)itemView.findViewById(R.id.img_bhartilogo);
             ll=(LinearLayout)itemView.findViewById(R.id.ll);
             img_web=(WebView) itemView.findViewById(R.id.img_web);
+            txt_price=itemView.findViewById(R.id.txt_price);
+            txt_writer=itemView.findViewById(R.id.txt_writer);
+            txt_discountprice=itemView.findViewById(R.id.txt_discountprize);
+            txt_pages=itemView.findViewById(R.id.txt_pages);
+            btn_buy=itemView.findViewById(R.id.btn_buy);
         }
     }
 

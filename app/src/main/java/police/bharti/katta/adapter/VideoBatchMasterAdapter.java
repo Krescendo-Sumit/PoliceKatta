@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,7 +50,7 @@ public class VideoBatchMasterAdapter extends  RecyclerView.Adapter<VideoBatchMas
     @Override
     public VideoBatchMasterAdapter.DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_listofmaster, parent, false);
+                .inflate(R.layout.card_listofmaster_video, parent, false);
 
         return new VideoBatchMasterAdapter.DataObjectHolder(view);
     }
@@ -103,14 +104,27 @@ public class VideoBatchMasterAdapter extends  RecyclerView.Adapter<VideoBatchMas
                 public void onClick(View v) {
 
                  //    Toast.makeText(context, ""+saravMenuModel.getId(), Toast.LENGTH_SHORT).show();
-                    Preferences.save(context,Preferences.SELECTEDVIDEOID,saravMenuModel.getId());
-                    Intent intent=new Intent(context, VideoList.class);
-                    context.startActivity(intent);
-
+                    if(saravMenuModel.getActive_status()>0) {
+                        Preferences.save(context, Preferences.SELECTEDVIDEOID, saravMenuModel.getId());
+                        Intent intent = new Intent(context, VideoList.class);
+                        context.startActivity(intent);
+                    }else
+                    {
+                        Toast.makeText(context, "Purchase this Course.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             holder.txt_nofq.setText(saravMenuModel.getNoofq());
-            holder.txt_rate.setText("Purchase In Just \n Rs."+saravMenuModel.getRate());
+            if(saravMenuModel.getActive_status()==0)
+            {
+                holder.txt_rate.setText("Purchase In Just \n Rs."+saravMenuModel.getRate());
+            }else
+            {
+                holder.txt_rate.setText("पुढे जा.");
+                holder.txt_rate.setBackgroundResource(R.drawable.outline);
+
+            }
+
 
         }catch(Exception e)
         {

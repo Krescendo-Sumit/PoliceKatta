@@ -35,7 +35,7 @@ public class TestMasterMenu extends AppCompatActivity {
     LinearLayoutManager mManager;
     Context context;
     ProgressDialog progressDialog;
-
+String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +54,8 @@ public class TestMasterMenu extends AppCompatActivity {
 //        progressDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.CENTER);
         rc_listofsaravmenu.setLayoutManager(mManager);
         setTitle("टेस्ट सिरीज संच");
-        getMenuList();
+        id=getIntent().getExtras().getString("id");
+        getMenuList(id);
     }
 
     @Override
@@ -73,7 +74,7 @@ public class TestMasterMenu extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getMenuList() {
+    private void getMenuList(String id) {
 
         try {
             if (!progressDialog.isShowing())
@@ -83,7 +84,7 @@ public class TestMasterMenu extends AppCompatActivity {
             jsonObject.put("mobile", "9420329047");
 
             String mobile = Preferences.get(context, Preferences.USER_MOBILE);
-            Call<List<TestSeriesModel>> call = RetrofitClient.getInstance().getMyApi().getTestMenu(mobile);
+            Call<List<TestSeriesModel>> call = RetrofitClient.getInstance().getMyApi().getTestMenu(mobile,id);
             call.enqueue(new Callback<List<TestSeriesModel>>() {
                 @Override
                 public void onResponse(Call<List<TestSeriesModel>> call, Response<List<TestSeriesModel>> response) {
@@ -118,5 +119,11 @@ public class TestMasterMenu extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getMenuList(id);
     }
 }

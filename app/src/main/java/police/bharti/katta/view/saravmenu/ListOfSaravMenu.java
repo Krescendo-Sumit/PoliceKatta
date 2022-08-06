@@ -45,8 +45,8 @@ public class ListOfSaravMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_sarav_menu);
-      /*  getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);*/
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         context = ListOfSaravMenu.this;
         rc_listofsaravmenu = (RecyclerView) findViewById(R.id.rc_listofsaravmenu);
@@ -117,7 +117,7 @@ public class ListOfSaravMenu extends AppCompatActivity {
                             */
 
 
-                            Toast.makeText(ListOfSaravMenu.this, "s =" + s.size() + "  live " + saravMenuModels.size(), Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(ListOfSaravMenu.this, "s =" + s.size() + "  live " + saravMenuModels.size(), Toast.LENGTH_SHORT).show();
                        /*     if (localStatus == 1) {
                                 insertRecords();
                             } else if (s.size()+1 < saravMenuModels.size()) {
@@ -186,7 +186,7 @@ public class ListOfSaravMenu extends AppCompatActivity {
     }
 
     public void showquery(View view) {
-       // insertRecords();
+        // insertRecords();
         SaravMenuModel model=(SaravMenuModel)s.get(0);
         getMenuList(model.getId());
     }

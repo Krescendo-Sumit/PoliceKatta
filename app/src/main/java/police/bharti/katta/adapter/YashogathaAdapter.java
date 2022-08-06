@@ -50,7 +50,7 @@ public class YashogathaAdapter extends  RecyclerView.Adapter<YashogathaAdapter.D
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_books, parent, false);
+                .inflate(R.layout.card_yashogatha, parent, false);
 
         return new DataObjectHolder(view);
     }
@@ -87,6 +87,7 @@ public class YashogathaAdapter extends  RecyclerView.Adapter<YashogathaAdapter.D
             holder.txt_writer.setText(Html.fromHtml("<b>पत्ता :</b>"+YashoGathaModel.getLocation()));
             holder.txt_pages.setText(Html.fromHtml("<b>मोबाईल :</b>"+YashoGathaModel.getMobile()));
             holder.txt_price.setText(Html.fromHtml("<b>निवड :</b>"+YashoGathaModel.getPost()));
+            holder.txt_details.setText(Html.fromHtml("<b>वर्ष :</b>"+YashoGathaModel.getFeedback()));
 
             String url= Constants.BASE_URL+YashoGathaModel.getImagepath();
             String serverpath = Constants.BASE_URL+"no-image.png";
@@ -101,7 +102,7 @@ public class YashogathaAdapter extends  RecyclerView.Adapter<YashogathaAdapter.D
                     "  height: auto;\n" +
                     "}</style>" +
                     "</head>"; data = data + "<body><center>" +
-                    "<img width=\"100%\" height='100%' src=\"" + url + "\" " +
+                    "<img width=\"100%\" height='auto' src=\"" + url + "\" " +
                     "onerror=\"this.onerror=null; this.src='" + serverpath + "'\"/>" +
                     "" +
                     "</center></body></html>";
@@ -140,7 +141,7 @@ public class YashogathaAdapter extends  RecyclerView.Adapter<YashogathaAdapter.D
         ImageView imageView;
         LinearLayout ll;
         WebView img_web;
-        TextView txt_price,txt_writer,txt_discountprice,txt_pages;
+        TextView txt_price,txt_writer,txt_discountprice,txt_pages,txt_details;
         public DataObjectHolder(View itemView) {
             super(itemView);
             price = (TextView) itemView.findViewById(R.id.txt_title);
@@ -151,6 +152,7 @@ public class YashogathaAdapter extends  RecyclerView.Adapter<YashogathaAdapter.D
             txt_writer=itemView.findViewById(R.id.txt_writer);
             txt_discountprice=itemView.findViewById(R.id.txt_discountprize);
             txt_pages=itemView.findViewById(R.id.txt_pages);
+            txt_details=itemView.findViewById(R.id.txt_details);
         }
     }
 

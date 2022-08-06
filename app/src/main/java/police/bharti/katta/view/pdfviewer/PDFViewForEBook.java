@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -37,6 +38,8 @@ public class PDFViewForEBook extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_SECURE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         pdfView = findViewById(R.id.idPDFView);
+        pdfView.computeScroll();
+        pdfView.setScrollBarSize(100);
         progressDialog=new ProgressDialog(PDFViewForEBook.this);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("प्रतिक्षा करा..");
@@ -102,6 +105,7 @@ public class PDFViewForEBook extends AppCompatActivity {
             // after the execution of our async
             // task we are loading our pdf in our pdf view.
             pdfView.fromStream(inputStream).load();
+            pdfView.setScrollBarSize(100);
             progressDialog.dismiss();
         }
     }

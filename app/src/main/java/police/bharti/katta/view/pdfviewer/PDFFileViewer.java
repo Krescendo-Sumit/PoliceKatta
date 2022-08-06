@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -43,11 +45,23 @@ public class PDFFileViewer extends AppCompatActivity {
         progressDialog.setMessage("प्रतिक्षा करा..");
         setTitle("माहिती बघा");
         filename=getIntent().getExtras().getString("fname").trim();
-        pdfurl= Constants.BASE_URL+filename;
-        Log.i("File URl is ",pdfurl);
 
-        UrlRender=new RetrivePDFfromUrl();
-        UrlRender.execute(pdfurl);
+        pdfView.setScrollBarSize(30);
+
+        if(filename!=null  ) {
+            if(filename.trim().equals(""))
+            {
+                Toast.makeText(this, "File Missing..", Toast.LENGTH_SHORT).show();
+            }else {
+                pdfurl = Constants.BASE_URL + filename;
+                Log.i("File URl is ", pdfurl);
+
+                UrlRender = new RetrivePDFfromUrl();
+                UrlRender.execute(pdfurl);
+            }}else
+        {
+            Toast.makeText(this, "File is Missing..", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

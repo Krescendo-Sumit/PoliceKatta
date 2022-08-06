@@ -9,6 +9,16 @@ public class BookModel {
     String pages;
     String price;
 
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    String fname;
+
     public String getWriter() {
         return writer;
     }

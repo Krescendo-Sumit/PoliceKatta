@@ -85,4 +85,42 @@ public class EBookModel {
     }
 
     String rate;
+    String writer;
+    String pages;
+
+    public String getWriter() {
+        return writer;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
+    public String getPages() {
+        return pages;
+    }
+
+    public void setPages(String pages) {
+        this.pages = pages;
+    }
+
+    public String getDiscountprize() {
+        return discountprize;
+    }
+
+    public void setDiscountprize(String discountprize) {
+        this.discountprize = discountprize;
+    }
+
+    String discountprize;
+
+    public int getActive_status() {
+        return active_status;
+    }
+
+    public void setActive_status(int active_status) {
+        this.active_status = active_status;
+    }
+
+    int active_status;
 }

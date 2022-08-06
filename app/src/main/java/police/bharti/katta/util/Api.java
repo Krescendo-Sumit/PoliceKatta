@@ -41,7 +41,7 @@ public interface Api {
     Call<List<SaravMenuModel>> getSaravMenu(@Query("mobile") String mobile,@Query("id")String id,@Query("type")String type);
 
     @POST(Constants.TEST_SERIES_MASTER_MENU)
-    Call<List<TestSeriesModel>> getTestMenu(@Query("mobile") String mobile);
+    Call<List<TestSeriesModel>> getTestMenu(@Query("mobile") String mobile,@Query("id")String id);
 
     @POST(Constants.BATCH_MASTER)
     Call<List<VideoBatchModel>> getBatchMaster(@Query("mobile") String mobile);
@@ -59,7 +59,7 @@ public interface Api {
 
 
     @POST(Constants.LIVE_TEST_PAPER)
-    Call<List<LiveTestModel>> getLiveTestPaper(@Query("mobile") String mobile);
+    Call<List<LiveTestModel>> getLiveTestPaper(@Query("mobile") String mobile, @Query("id")String id);
 
     @POST(Constants.INSERTLIVE_TEST_RESULT)
     Call<String> submitLiveTestResult(@Query("testid") String testid,@Query("mobile") String mobile,@Query("correct") String correct,@Query("total") String total,@Query("unanswer") String unanswer,@Query("wrong") String wrong);
@@ -95,9 +95,19 @@ public interface Api {
     Call<List<ChaluGhadamodiModel>> getChalughadaModiMenu(@Body JSONObject jsonObject);
 
     @POST(Constants.MAGIL_PRASHN_PATRIKA)
-    Call<List<MagitPrashnPatrikaModel>> getMagilPrashnPatrika(@Body JSONObject jsonObject);
+    Call<List<MagitPrashnPatrikaModel>> getMagilPrashnPatrika(@Query("mobile") String mobile, @Query("id")String id);
 
+    @POST(Constants.MAGIL_PRASHN_PATRIKA_MENU)
+    Call<List<MagitPrashnPatrikaModel>> getMagilPrashnPatrikaMenu(@Query("mobile") String mobile, @Query("id")String id);
 
+    @POST(Constants.MAGIL_PRASHN_PATRIKA_HEADING)
+    Call<List<MagitPrashnPatrikaModel>> getMagilPrashnPatrikaHeading (@Body JSONObject jsonObject);
+
+    @POST(Constants.LIVE_TEST_HEADING)
+    Call<List<MagitPrashnPatrikaModel>> getLiveTestHeading (@Body JSONObject jsonObject);
+
+    @POST(Constants.TEST_SERIES_HEADING_LIST)
+    Call<List<MagitPrashnPatrikaModel>> getTestSeriesHeading(@Body JSONObject jsonObject);
 
     @POST(Constants.GET_BOOKS_LIST)
     Call<List<BookModel>> getBookList(@Body JSONObject jsonObject);
@@ -108,6 +118,20 @@ public interface Api {
 
     @POST(Constants.IMPORTANT_NOTES_ITEM_URL)
     Call<List<ImportantNoteItemModel>> getImportantNotesItem(@Query("mobile") String mobile, @Query("id")String id, @Query("type")String type);
+
+    @POST(Constants.CHECK_COUPON)
+    Call<String> checkCoupon(@Query("mobile") String mobile, @Query("code")String code, @Query("testid")String testid);
+
+
+    @POST(Constants.CHECK_USER)
+    Call<String> checkUser(@Query("mobile") String mobile,@Query("password") String password);
+
+    @POST(Constants.CHECK_USER_INSTALL)
+    Call<String> checkUserInstallation(@Query("mobile") String mobile,@Query("uid") String uid,@Query("installedid") String installedid);
+
+    @POST(Constants.INSERT_USER)
+    Call<String> insertUser(@Query("name") String name,@Query("mobile") String mobile,@Query("password") String password);
+
 
 
 }

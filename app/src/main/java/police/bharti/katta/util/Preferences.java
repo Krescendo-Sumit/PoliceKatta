@@ -36,6 +36,12 @@ public class Preferences {
     public static final String LIVESELECTEDPAPERDATE ="live_test_date" ;
     public static final String LIVESELECTEDPAPERTIME = "live_test_time";
     public static final String LIVESELECTEDPAPERDURATION = "live_test_duration";
+    public static final String USER_ID = "user_code";
+    public static final String USER_INSTALL_ID ="usaer_installed_id" ;
+    public static final String SELECTEDSARAVMASTERNAME = "SELECTED_SARAV_MASTER";
+    public static final String SELECTEDMAGILPRASHNPATRIKAMENU = "SLECTEDMAGOLPRASHNPATRIKAMENU";
+    public static final String SELECTEDMAGILPRASHNPATRIKAHEADING = "SLECTEDMAGOLPRASHNPATRIKAHEADING";
+    public static final String SELECTEDTESTSERIESHEADING ="SelectedTestSeriesHeading" ;
 
 
     public Preferences(Context context) {

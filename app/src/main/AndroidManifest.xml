@@ -9,21 +9,62 @@
         android:allowBackup="true"
         android:icon="@drawable/pbk_logo"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/pbk_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.PoliceBhartiKatta"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.testserise.CouponCodeActivity"></activity>
-        <activity android:name=".view.saravmenu.SingleSaravQuestionView" />
-        <activity android:name=".view.testserise.TestSeriesResult" />
-        <activity android:name=".view.livetest.LiveTestQuestion" />
-        <activity android:name=".view.livetest.LiveTestList" />
-        <activity android:name=".view.onlineclass.ViewVideo" />
-        <activity android:name=".view.onlineclass.VideoList" />
-        <activity android:name=".view.onlineclass.BatchMaster" />
-        <activity android:name=".view.magilprashnapatrika.MagilPrashnPatrika" />
-        <activity android:name=".view.mahatvacyanotes.ImportantItemList" />
-        <activity android:name=".view.mahatvacyanotes.ImportantNotesMenuList" />
+        <activity android:name=".view.livetest.LiveTestHeadingList"></activity>
+        <activity android:name=".view.testserise.TestSeriesHeading" />
+        <activity android:name=".view.magilprashnapatrika.MagilPrashnPatrikaHeadingList" />
+        <activity android:name=".view.magilprashnapatrika.MagilPrashnPatrikaMenus" />
+        <activity
+            android:name=".view.payment.PhonepayPayment"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.pdfviewer.ContentViewer" />
+        <activity
+            android:name=".Flash"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PoliceBhartiKatta.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.testserise.CouponCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.saravmenu.SingleSaravQuestionView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.testserise.TestSeriesResult"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.livetest.LiveTestQuestion"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.livetest.LiveTestList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.onlineclass.ViewVideo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.onlineclass.VideoList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.onlineclass.BatchMaster"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.magilprashnapatrika.MagilPrashnPatrika"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mahatvacyanotes.ImportantItemList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mahatvacyanotes.ImportantNotesMenuList"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.testserise.TestSeriesPaper"
             android:screenOrientation="portrait" />
@@ -33,9 +74,15 @@
         <activity
             android:name=".view.testserise.TestSeriesQuestions"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.yashogatha.YashogathaView" />
-        <activity android:name=".view.pdfviewer.PDFViewForEBook" />
-        <activity android:name=".view.e_book.EBookView" />
+        <activity
+            android:name=".view.yashogatha.YashogathaView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.pdfviewer.PDFViewForEBook"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.e_book.EBookView"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.saravmenu.SaravQuestions"
             android:screenOrientation="portrait" />
@@ -64,16 +111,28 @@
             android:name=".HomeScreen"
             android:label="@string/title_activity_home_screen"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.PoliceBhartiKatta.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.PoliceBhartiKatta.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.SignUp"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PoliceBhartiKatta.NoActionBar" />
+        <activity
+            android:name=".view.login.Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PoliceBhartiKatta.NoActionBar" />
+
+        <meta-data
+            android:name="com.phonepe.android.sdk.Debuggable"
+            android:value="true" /> <!-- Keep it false in production environment -->
+        <meta-data
+            android:name="com.phonepe.android.sdk.isUAT"
+            android:value="true" /> <!-- Get the App Id from PhonePe -->
+        <meta-data
+            android:name="com.phonepe.android.sdk.AppId"
+            android:value="9420329047@ybl" />
     </application>
 
 </manifest>

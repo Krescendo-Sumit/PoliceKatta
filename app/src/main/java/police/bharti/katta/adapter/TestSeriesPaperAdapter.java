@@ -108,6 +108,8 @@ public class TestSeriesPaperAdapter extends  RecyclerView.Adapter<TestSeriesPape
                 public void onClick(View v) {
                     Preferences.save(context,Preferences.SELECTEDPAPERID,saravMenuModel.getId());
                     Preferences.save(context,Preferences.SELECTEDPAPERFILE,saravMenuModel.getFilepath());
+                    Preferences.save(context,Preferences.LIVESELECTEDPAPERDURATION,saravMenuModel.getTotalduration());
+
                     Intent intent=new Intent(context, TestSeriesQuestions.class);
                     context.startActivity(intent);
                 }

@@ -32,6 +32,8 @@ public class LiveTestList extends AppCompatActivity {
     LinearLayoutManager mManager;
     Context context;
     ProgressDialog progressDialog;
+    String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,8 @@ public class LiveTestList extends AppCompatActivity {
 //        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 //        progressDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.CENTER);
         rc_listofsaravmenu.setLayoutManager(mManager);
-        setTitle("टेस्ट सिरीज पेपर");
+        setTitle("Live Test");
+        id=getIntent().getExtras().getString("id");
         getMenuList();
     }
     @Override
@@ -74,7 +77,7 @@ public class LiveTestList extends AppCompatActivity {
             if (!progressDialog.isShowing())
                 progressDialog.show();
 
-            Call<List<LiveTestModel>> call = RetrofitClient.getInstance().getMyApi().getLiveTestPaper(Preferences.get(context,Preferences.USER_MOBILE).toString());
+            Call<List<LiveTestModel>> call = RetrofitClient.getInstance().getMyApi().getLiveTestPaper(Preferences.get(context,Preferences.USER_MOBILE).toString(),id);
             call.enqueue(new Callback<List<LiveTestModel>>() {
                 @Override
                 public void onResponse(Call<List<LiveTestModel>> call, Response<List<LiveTestModel>> response) {

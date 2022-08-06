@@ -70,6 +70,7 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
     int unanswered = 0;
     int wrong = 0;
     int total = 0;
+    TextView txt_question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,7 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
         btn_b = findViewById(R.id.btn_b);
         btn_c = findViewById(R.id.btn_c);
         btn_d = findViewById(R.id.btn_d);
+        txt_question= findViewById(R.id.txt_question);
         btn_submit = findViewById(R.id.btn_submit);
 
         question_number = findViewById(R.id.txt_question_no);
@@ -184,14 +186,22 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
             list_question[i] = new ArrayList();
         }
         for (int i = 0; i < saravMenuModels.size(); i++) {
-            list_question[i].add(saravMenuModels.get(i).getQuestionno());  // Question number
-            list_question[i].add(saravMenuModels.get(i).getAns());  // Correct Option
-            list_question[i].add(0);
+            list_question[i].add(saravMenuModels.get(i).getQuestionno());  // 0 Question number
+            list_question[i].add(saravMenuModels.get(i).getAns());  // 1 Correct Option
+            list_question[i].add(0);                                //2
+            list_question[i].add(saravMenuModels.get(i).getQuestion()); //3
+            list_question[i].add(saravMenuModels.get(i).getOpt1());//4
+            list_question[i].add(saravMenuModels.get(i).getOpt2());//5
+            list_question[i].add(saravMenuModels.get(i).getOpt3());//6
+            list_question[i].add(saravMenuModels.get(i).getOpt4());//7
+
         }
         //  Toast.makeText(context, "After List : "+list_question.length, Toast.LENGTH_SHORT).show();
 
-       /* String dura=Preferences.get(context, Preferences.LIVESELECTEDPAPERDURATION);
-        new CountDownTimer(10000 * (Integer.parseInt(dura.trim())), 1000) {
+        String dura=Preferences.get(context, Preferences.LIVESELECTEDPAPERDURATION);
+        int ddd=(60*(1000* (Integer.parseInt(dura.trim()))));
+        Toast.makeText(context,""+ddd,Toast.LENGTH_LONG).show();
+        new CountDownTimer(ddd, 1000) {
             public void onTick(long millisUntilFinished) {
                 // Used for formatting digit to be in 2 digits only
                 NumberFormat f = new DecimalFormat("00");
@@ -206,7 +216,7 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
                 txt_timmer.setText("00:00:00");
                 submittest();
             }
-        }.start();*/
+        }.start();
 
         showQuestion(cnt);
     }
@@ -228,6 +238,7 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
         try {
 
             question_number.setText("Q.  " + (cnt + 1));
+
             showListElements();
             //     Toast.makeText(context, ""+list_question[cnt].size(), Toast.LENGTH_SHORT).show();
             int temp = Integer.parseInt(list_question[cnt].get(2).toString().trim());
@@ -235,6 +246,12 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
                 highlightButton(temp);
             else
                 highlightButton(0);
+
+            txt_question.setText(""+list_question[cnt].get(3).toString().trim());
+            btn_a.setText(""+list_question[cnt].get(4).toString().trim());
+            btn_b.setText(""+list_question[cnt].get(5).toString().trim());
+            btn_c.setText(""+list_question[cnt].get(6).toString().trim());
+            btn_d.setText(""+list_question[cnt].get(7).toString().trim());
 
         } catch (Exception e) {
             Log.i("Error is 1234", e.getMessage());

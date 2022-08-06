@@ -86,7 +86,7 @@ public class TestSeriesMasterAdapter extends RecyclerView.Adapter<TestSeriesMast
             holder.price.setText(saravMenuModel.getTitle());
             //holder.txt_details.setText(saravMenuModel.get());
 
-            String url = Constants.BASE_URL + saravMenuModel.getImagepath();
+           /* String url = Constants.BASE_URL + saravMenuModel.getImagepath();
             String serverpath = Constants.BASE_URL + "no-image.png";
             // Log.i("DefaultPath",serverpath);
             String data = "<html><head><meta name=\"viewport\"\"content=\"width='100%', initial-scale=0.65 \" /></head>";
@@ -97,7 +97,7 @@ public class TestSeriesMasterAdapter extends RecyclerView.Adapter<TestSeriesMast
                     "</center></body></html>";
             //  Log.i("WebViewData","====="+data);
             holder.img_web.getSettings().setJavaScriptEnabled(true);
-            holder.img_web.loadData(data, "text/html", "UTF-8");
+            holder.img_web.loadData(data, "text/html", "UTF-8");*/
 
             holder.ll.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,7 +108,14 @@ public class TestSeriesMasterAdapter extends RecyclerView.Adapter<TestSeriesMast
                     if (Integer.parseInt(saravMenuModel.getActive_status()) > 0) {
                         Intent intent = new Intent(context, TestSeriesPaper.class);
                         context.startActivity(intent);
-                    } else {
+                    }
+                    else if(saravMenuModel.getRate().contains("Free"))
+                    {
+                        Intent intent = new Intent(context, TestSeriesPaper.class);
+                        context.startActivity(intent);
+                    }
+
+                    else {
                       //  Toast.makeText(context, "Please purchase this test.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, CouponCodeActivity.class);
                         context.startActivity(intent);
@@ -119,7 +126,11 @@ public class TestSeriesMasterAdapter extends RecyclerView.Adapter<TestSeriesMast
             holder.txt_nofq.setText(saravMenuModel.getNoofq());
             if (Integer.parseInt(saravMenuModel.getActive_status()) > 0) {
                 holder.txt_rate.setText("पुढे जा.");
-            } else {
+            } else if(saravMenuModel.getRate().contains("Free"))
+            {
+                holder.txt_rate.setText("" + saravMenuModel.getRate());
+            }else
+             {
                 holder.txt_rate.setText("Purchase In Just \n Rs." + saravMenuModel.getRate());
             }
         } catch (Exception e) {

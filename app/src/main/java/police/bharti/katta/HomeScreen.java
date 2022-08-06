@@ -2,44 +2,30 @@ package police.bharti.katta;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
-import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 import androidx.cardview.widget.CardView;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import police.bharti.katta.util.Preferences;
-import police.bharti.katta.view.bhartidetails.BhartiDetailsList;
 import police.bharti.katta.view.chalughadamodi.ChaluGhadamodiMenu;
 import police.bharti.katta.view.e_book.EBookView;
 import police.bharti.katta.view.listofbharti.ListOfBharti;
+import police.bharti.katta.view.livetest.LiveTestHeadingList;
 import police.bharti.katta.view.livetest.LiveTestList;
-import police.bharti.katta.view.magilprashnapatrika.MagilPrashnPatrika;
+import police.bharti.katta.view.magilprashnapatrika.MagilPrashnPatrikaHeadingList;
+import police.bharti.katta.view.magilprashnapatrika.MagilPrashnPatrikaMenus;
 import police.bharti.katta.view.mahatvacyanotes.ImportantNotesMenuList;
 import police.bharti.katta.view.onlineclass.BatchMaster;
 import police.bharti.katta.view.pustakkharedi.PustakKharedi;
 import police.bharti.katta.view.saravmenu.ListOfSaravMenu;
 import police.bharti.katta.view.testserise.TestMasterMenu;
+import police.bharti.katta.view.testserise.TestSeriesHeading;
 import police.bharti.katta.view.yashogatha.YashogathaView;
 
 public class HomeScreen extends AppCompatActivity implements View.OnClickListener {
@@ -55,7 +41,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         context = HomeScreen.this;
-        Preferences.save(context, Preferences.USER_MOBILE, "9420329047");
+      //  Preferences.save(context, Preferences.USER_MOBILE, "9420329047");
         init();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -167,7 +153,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
                 startActivity(intent);
                 break;
             case R.id.card_testseries:
-                intent = new Intent(context, TestMasterMenu.class);
+                intent = new Intent(context, TestSeriesHeading.class);
                 startActivity(intent);
                 break;
             case R.id.card_importantnotes:
@@ -179,7 +165,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
                 startActivity(intent);
                 break;
             case R.id.card_magilprashnpatrika:
-                intent = new Intent(context, MagilPrashnPatrika.class);
+                intent = new Intent(context, MagilPrashnPatrikaHeadingList.class);
                 startActivity(intent);
                 break;
             case R.id.card_onlineclass:
@@ -187,7 +173,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
                 startActivity(intent);
                 break;
             case R.id.card_livetest:
-                intent = new Intent(context, LiveTestList.class);
+                intent = new Intent(context, LiveTestHeadingList.class);
                 startActivity(intent);
                 break;
         }

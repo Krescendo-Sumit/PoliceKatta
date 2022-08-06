@@ -119,6 +119,7 @@ public class MyDb extends SQLiteOpenHelper {
 
         SQLiteDatabase mydb = null;
         try {
+            removeMaster("Delete from tbl_sarav_question3");
             mydb = this.getReadableDatabase();
             String q = query;
             Log.i("Query is -------> ", "" + q);

@@ -34,6 +34,7 @@ public class MagilPrashnPatrika extends AppCompatActivity {
     LinearLayoutManager mManager;
     Context context;
     ProgressDialog progressDialog;
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +49,8 @@ public class MagilPrashnPatrika extends AppCompatActivity {
         progressDialog.setMessage("प्रतिक्षा करा..");
         setTitle("मागील प्रश्न पत्रिका");
         rc_listofsaravmenu.setLayoutManager(mManager);
-
-        getMenuList();
+        id=getIntent().getExtras().getString("id");
+        getMenuList("",id);
 
     }
 
@@ -69,7 +70,7 @@ public class MagilPrashnPatrika extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    private void getMenuList() {
+    private void getMenuList(String mobile,String id) {
 
         try {
             if (!progressDialog.isShowing())
@@ -79,7 +80,7 @@ public class MagilPrashnPatrika extends AppCompatActivity {
             jsonObject.put("mobile", "9420329047");
 
 
-            Call<List<MagitPrashnPatrikaModel>> call = RetrofitClient.getInstance().getMyApi().getMagilPrashnPatrika(jsonObject);
+            Call<List<MagitPrashnPatrikaModel>> call = RetrofitClient.getInstance().getMyApi().getMagilPrashnPatrika(mobile,id);
             call.enqueue(new Callback<List<MagitPrashnPatrikaModel>>() {
                 @Override
                 public void onResponse(Call<List<MagitPrashnPatrikaModel>> call, Response<List<MagitPrashnPatrikaModel>> response) {

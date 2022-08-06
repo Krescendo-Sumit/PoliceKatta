@@ -13,7 +13,13 @@
         <com.github.barteksc.pdfviewer.PDFView
             android:id="@+id/idPDFView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:isScrollContainer="true"
+
+            android:overScrollMode="always"
+            android:scrollbarSize="4dp"
+            android:scrollbarThumbVertical="@drawable/scrollbar"
+            android:scrollbarStyle="outsideInset" />
 
 
     </LinearLayout>

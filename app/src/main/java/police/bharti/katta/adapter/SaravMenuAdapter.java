@@ -111,7 +111,10 @@ public class SaravMenuAdapter  extends  RecyclerView.Adapter<SaravMenuAdapter.Da
                     int cnt=Integer.parseInt(saravMenuModel.getNoofcnt().trim());
                     if(cnt>0) {
                         Preferences.save(context, Preferences.SELECTEDSARAVID, saravMenuModel.getId());
+                        Preferences.save(context, Preferences.SELECTEDSARAVMASTERNAME, saravMenuModel.getTitle());
+
                         Intent intent = new Intent(context, SingleSaravQuestionView.class);
+
                         context.startActivity(intent);
                     }else {
                         Snackbar.make(holder.ll,"No questions available in this section.",Snackbar.LENGTH_LONG).show();

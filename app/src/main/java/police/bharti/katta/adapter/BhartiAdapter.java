@@ -39,6 +39,7 @@ import police.bharti.katta.model.BhartiModel;
 import police.bharti.katta.util.Constants;
 import police.bharti.katta.util.Preferences;
 import police.bharti.katta.view.bhartidetails.BhartiDetailsList;
+import police.bharti.katta.view.pdfviewer.ContentViewer;
 import police.bharti.katta.view.pdfviewer.PDFFileViewer;
 
 public class BhartiAdapter extends  RecyclerView.Adapter<BhartiAdapter.DataObjectHolder>{
@@ -116,13 +117,28 @@ public class BhartiAdapter extends  RecyclerView.Adapter<BhartiAdapter.DataObjec
             holder.ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String fn=bhartiModel.getFilepath();
+                    String d=fn.substring(fn.lastIndexOf("/")+1,fn.length());
+                  //  Toast.makeText(context, ""+d.trim(), Toast.LENGTH_SHORT).show();
+d="1";
+                    if(d!=null) {
 
-                   // Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
-                    Preferences.save(context,Preferences.SELECTEDEXAMID,bhartiModel.getId());
-                    Intent intent=new Intent(context, PDFFileViewer.class);
-                    intent.putExtra("fname",bhartiModel.getFilepath());
-                    context.startActivity(intent);
+                        if (d.trim().equals("")) {
+                            Toast.makeText(context, "File Missing.", Toast.LENGTH_SHORT).show();
+                        } else {
 
+
+                         //   Preferences.save(context, Preferences.SELECTEDEXAMID, bhartiModel.getId());
+                           // Intent intent = new Intent(context, PDFFileViewer.class);
+                            Intent intent = new Intent(context, ContentViewer.class);
+                            intent.putExtra("fname", bhartiModel.getFilepath());
+                            intent.putExtra("data", bhartiModel.getDetails());
+                            context.startActivity(intent);
+                        }
+                    }else
+                    {
+                        Toast.makeText(context, "File Missing", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 

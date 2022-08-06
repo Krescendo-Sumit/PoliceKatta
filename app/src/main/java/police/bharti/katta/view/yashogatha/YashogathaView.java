@@ -52,11 +52,6 @@ public class YashogathaView extends AppCompatActivity {
         mManager = new LinearLayoutManager(context);
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("प्रतिक्षा करा..");
-        // progressDialog.setCanceledOnTouchOutside(false);
-//        progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-     //   progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        progressDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.CENTER);
-   //     rc_listofsaravmenu.setLayoutManager(new GridLayoutManager(this, 2));
         rc_listofsaravmenu.setLayoutManager(mManager);
 
         getMenuList();

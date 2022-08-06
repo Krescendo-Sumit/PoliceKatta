@@ -65,14 +65,15 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
     List<SaravQuestionModel> saravMenuModels;
     ArrayList saa;
     int localStatus = 0;
+    TextView txt_title_master;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_sarav_question_view);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      /*  getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);*/
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
 
         context = SingleSaravQuestionView.this;
         init();
@@ -87,6 +88,7 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
         //     btn_submit = findViewById(R.id.btn_submit);
 
         question_number = findViewById(R.id.txt_question_no);
+        txt_title_master = findViewById(R.id.txt_title_master);
         txt_question = findViewById(R.id.txt_question);
         btn_a.setOnClickListener(this);
         btn_b.setOnClickListener(this);
@@ -102,6 +104,7 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("प्रतिक्षा करा..");
         setTitle("सराव प्रश्न");
+        txt_title_master.setText(Preferences.get(context, Preferences.SELECTEDSARAVMASTERNAME).trim());
         //  Toast.makeText(context,""+new MyDb(context).getSaravExist(Preferences.get(context, Preferences.SELECTEDSARAVID)),Toast.LENGTH_LONG).show();
         if (Integer.parseInt(new MyDb(context).getSaravExist(Preferences.get(context, Preferences.SELECTEDSARAVID))) > 0) {
 

@@ -12,11 +12,19 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
-        <item name="android:scrollbarSize">40dp</item>
+       <!-- <item name="android:scrollbarSize">40dp</item>-->
         <item name="android:scrollbarThumbVertical">@color/black</item>
+
+
         <!-- Customize your theme here. -->
     </style>
-
+    <style name="tallerBarStyle" parent="@android:style/Widget.SeekBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@android:drawable/progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_horizontal</item>
+        <item name="android:minHeight">8dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
     <style name="Theme.PoliceBhartiKatta.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

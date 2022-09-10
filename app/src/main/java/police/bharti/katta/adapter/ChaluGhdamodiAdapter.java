@@ -26,6 +26,7 @@ import police.bharti.katta.model.SaravMenuModel;
 import police.bharti.katta.util.Constants;
 import police.bharti.katta.util.Preferences;
 import police.bharti.katta.view.bhartidetails.BhartiDetailsList;
+import police.bharti.katta.view.chalughadamodi.ChaluGhadamodiMenu_SubHeading;
 import police.bharti.katta.view.pdfviewer.PDFFileViewer;
 
 public class ChaluGhdamodiAdapter extends  RecyclerView.Adapter<ChaluGhdamodiAdapter.DataObjectHolder>{
@@ -105,8 +106,8 @@ public class ChaluGhdamodiAdapter extends  RecyclerView.Adapter<ChaluGhdamodiAda
                 public void onClick(View v) {
                     // Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
                     Preferences.save(context,Preferences.SELECTEDCHALUGHADAMODIID,saravMenuModel.getId());
-                    Intent intent=new Intent(context, PDFFileViewer.class);
-                    intent.putExtra("fname",saravMenuModel.getFilepath());
+                    Intent intent=new Intent(context, ChaluGhadamodiMenu_SubHeading.class);
+                   // intent.putExtra("fname",saravMenuModel.getFilepath());
                     context.startActivity(intent);
                 }
             });

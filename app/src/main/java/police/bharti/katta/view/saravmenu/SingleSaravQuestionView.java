@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,15 +67,16 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
     List<SaravQuestionModel> saravMenuModels;
     ArrayList saa;
     int localStatus = 0;
-    TextView txt_title_master;
+    Button txt_title_master;
+    ImageView img_question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_sarav_question_view);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);
+/*        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);*/
 
         context = SingleSaravQuestionView.this;
         init();
@@ -85,6 +88,7 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
         btn_b = findViewById(R.id.btn_b);
         btn_c = findViewById(R.id.btn_c);
         btn_d = findViewById(R.id.btn_d);
+        img_question = findViewById(R.id.img_question);
         //     btn_submit = findViewById(R.id.btn_submit);
 
         question_number = findViewById(R.id.txt_question_no);
@@ -251,6 +255,7 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
             list_question[i].add(saravMenuModels.get(i).getHint());
             list_question[i].add(0);
             list_question[i].add(saravMenuModels.get(i).getId());
+            list_question[i].add(saravMenuModels.get(i).getImgpath());
         }
 
 
@@ -316,6 +321,16 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
             btn_b.setText("" + list_question[cnt].get(2).toString().trim());
             btn_c.setText("" + list_question[cnt].get(3).toString().trim());
             btn_d.setText("" + list_question[cnt].get(4).toString().trim());
+            Log.i("IMG",list_question[cnt].get(9).toString().trim());
+            if(list_question[cnt].get(9).toString().trim().trim().equals(""))
+            {
+
+            }else
+            {
+                Glide.with(this)
+                        .load(list_question[cnt].get(9).toString().trim())
+                        .into(img_question);
+            }
             showListElements();
             //     Toast.makeText(context, ""+list_question[cnt].size(), Toast.LENGTH_SHORT).show();
             int temp = Integer.parseInt(list_question[cnt].get(7).toString().trim());
@@ -704,7 +719,7 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
     private void insertRecords() {
         try {
             if (saravMenuModels != null) {
-                String s = "insert into tbl_sarav_question3 (id,question,opt1,opt2,opt3,opt4,correct,hint,status,cdate,saravid) values";
+                String s = "insert into tbl_sarav_question3 (id,question,opt1,opt2,opt3,opt4,correct,hint,status,cdate,saravid,imgpath) values";
                 String data = " ";
                 for (SaravQuestionModel m : saravMenuModels) {
                     Log.i("Title ", m.getQuestion());
@@ -718,7 +733,8 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
                             "'" + m.getHint() + "'," +
                             "'" + m.getStatus() + "'," +
                             "'" + m.getCdate() + "'," +
-                            "'" + m.getSaravid() + "'" +
+                            "'" + m.getSaravid() + "'," +
+                            "'" + m.getImgpath() + "'" +
                             "),";
                 }
                 s = s + " " + data;

@@ -20,17 +20,23 @@
             android:padding="5dp"
             android:text="नवीन प्रश्न जोडा" />
 
-        <TextView
-            android:id="@+id/txt_title_master"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/colabbold"
+            android:layout_height="match_parent"
+            android:background="#fff"
             android:gravity="right"
-            android:padding="10dp"
-            android:text="-"
-            android:textColor="#00695C"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/txt_title_master"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/correctansbutton"
+                android:padding="5dp"
+                android:text="-"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </LinearLayout>
     <LinearLayout
@@ -56,28 +62,6 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/txt_question_no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/quickbold"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="0/20"
-                android:textColor="#00838F"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/txt_question"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/quickbold"
-                android:gravity="center|left"
-                android:padding="5dp"
-                android:text="How to play flute in proper way?"
-                android:textColor="#070707"
-                android:textSize="24sp" />
-
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -88,6 +72,34 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txt_question_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quickbold"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="0/20"
+                        android:textColor="#00838F"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/txt_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quickbold"
+                        android:gravity="center|left"
+                        android:padding="5dp"
+                        android:text="-"
+                        android:textColor="#070707"
+                        android:textSize="24sp" />
+
+                    <ImageView
+                        android:id="@+id/img_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:srcCompat="@tools:sample/avatars" />
 
                     <TextView
                         android:id="@+id/textView16"
@@ -101,7 +113,7 @@
                         android:background="@drawable/defaultbutton"
                         android:gravity="center|left"
                         android:padding="15dp"
-                        android:text="TextView"
+                        android:text="-"
                         android:textColor="#000000"
                         android:textSize="24sp" />
 
@@ -117,7 +129,7 @@
                         android:background="@drawable/defaultbutton"
                         android:gravity="center|left"
                         android:padding="15dp"
-                        android:text="TextView"
+                        android:text="-"
                         android:textColor="#000000"
                         android:textSize="24sp" />
 
@@ -133,7 +145,7 @@
                         android:background="@drawable/defaultbutton"
                         android:gravity="center|left"
                         android:padding="15dp"
-                        android:text="TextView"
+                        android:text="-"
                         android:textColor="#000000"
                         android:textSize="24sp" />
 
@@ -149,7 +161,7 @@
                         android:background="@drawable/defaultbutton"
                         android:gravity="center|left"
                         android:padding="15dp"
-                        android:text="TextView"
+                        android:text="-"
                         android:textColor="#000000"
                         android:textSize="24sp" />
                 </LinearLayout>

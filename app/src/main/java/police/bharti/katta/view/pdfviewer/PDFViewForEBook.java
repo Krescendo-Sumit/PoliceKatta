@@ -7,10 +7,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
+
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -29,6 +36,11 @@ public class PDFViewForEBook extends AppCompatActivity {
     String pdfurl = "";
     ProgressDialog progressDialog;
     String filename="";
+
+    Spinner spinner;
+    ArrayAdapter adapter;
+    String[] strPageCounts;
+    Button txt_goto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +50,13 @@ public class PDFViewForEBook extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_SECURE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         pdfView = findViewById(R.id.idPDFView);
+        spinner = findViewById(R.id.spinner);
+        txt_goto = findViewById(R.id.txt_goto);
+
         pdfView.computeScroll();
-        pdfView.setScrollBarSize(100);
+//        ScrollBar scrollBar = (ScrollBar) findViewById(R.id.scrollBar);
+//        pdfView.setScrollBar(scrollBar);
+       // pdfView.setScrollBarSize(100);
         progressDialog=new ProgressDialog(PDFViewForEBook.this);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("प्रतिक्षा करा..");
@@ -105,11 +122,36 @@ public class PDFViewForEBook extends AppCompatActivity {
             // after the execution of our async
             // task we are loading our pdf in our pdf view.
             pdfView.fromStream(inputStream).load();
-            pdfView.setScrollBarSize(100);
+          //  pdfView.setScrollBarSize(100);
+            setSpinnerAdapter(pdfView.getPageCount());
             progressDialog.dismiss();
         }
     }
+    void setSpinnerAdapter(int pageCount) {
+        try {
+            strPageCounts = new String[pageCount];
+            for (int i = 0; i < pageCount; i++) {
+                strPageCounts[i] = "" + (i + 1);
+            }
+            adapter = new ArrayAdapter(PDFViewForEBook.this, android.R.layout.simple_list_item_1, strPageCounts);
+            spinner.setAdapter(adapter);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                    // if (position + 1 < pdfView.getPageCount())
+                    pdfView.jumpTo(position + 1);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        } catch (Exception e) {
+            Toast.makeText(PDFViewForEBook.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -117,6 +159,17 @@ public class PDFViewForEBook extends AppCompatActivity {
             UrlRender.cancel(true);
         }catch (Exception e)
         {
+
+        }
+    }
+    public void go(View v) {
+        try {
+            txt_goto.setVisibility(View.GONE);
+            spinner.setVisibility(View.VISIBLE);
+         //   pdfView.setPageFling(true);
+            setSpinnerAdapter(pdfView.getPageCount());
+          //  pdfView.setScrollBarSize(200);
+        } catch (Exception e) {
 
         }
     }

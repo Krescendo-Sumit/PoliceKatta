@@ -138,6 +138,7 @@ public class SaravQuestions extends AppCompatActivity {
                         "'"+m.getStatus()+"'" +
                         "'"+m.getCdate()+"'" +
                         "'"+m.getSaravid()+"'" +
+                        "'"+m.getImgpath()+"'" +
                         "),";
             }
             s=s+" "+data;

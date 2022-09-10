@@ -11,6 +11,16 @@ public class SaravQuestionModel {
     String correct;
     String hint;
 
+    public String getImgpath() {
+        return imgpath;
+    }
+
+    public void setImgpath(String imgpath) {
+        this.imgpath = imgpath;
+    }
+
+    String imgpath;
+
     public String getId() {
         return id;
     }

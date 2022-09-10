@@ -96,6 +96,9 @@
             android:name=".view.chalughadamodi.ChaluGhadamodiMenu"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.chalughadamodi.ChaluGhadamodiMenu_SubHeading"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.saravmenu.ListOfSaravMenu"
             android:screenOrientation="portrait" />
         <activity

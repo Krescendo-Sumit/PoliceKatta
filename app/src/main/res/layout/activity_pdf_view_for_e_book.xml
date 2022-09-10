@@ -9,6 +9,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/txt_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="go"
+                android:padding="10dp"
+                android:text="GO TO PAGE" />
+        </LinearLayout>
 
         <com.github.barteksc.pdfviewer.PDFView
             android:id="@+id/idPDFView"
@@ -20,7 +40,7 @@
 
             android:isScrollContainer="true"
             android:nestedScrollingEnabled="true"
-            android:scrollbarSize="50dip"
+
             android:scrollbarStyle="outsideInset"
             android:scrollbarThumbVertical="@drawable/scrollbar"
             android:scrollbars="vertical" />

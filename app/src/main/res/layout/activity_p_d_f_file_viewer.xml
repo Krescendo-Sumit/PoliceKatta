@@ -8,18 +8,46 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:orientation="vertical">
 
-        <com.github.barteksc.pdfviewer.PDFView
-            android:id="@+id/idPDFView"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/txt_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="go"
+                android:padding="10dp"
+                android:text="GO TO PAGE" />
+        </LinearLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:isScrollContainer="true"
+            android:orientation="horizontal">
 
-            android:overScrollMode="always"
-            android:scrollbarSize="4dp"
-            android:scrollbarThumbVertical="@drawable/scrollbar"
-            android:scrollbarStyle="outsideInset" />
+            <com.github.barteksc.pdfviewer.PDFView
+                android:id="@+id/idPDFView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:isScrollContainer="true"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarThumbHorizontal="@drawable/ic_baseline_check_circle_outline_24"
+                android:scrollbars="vertical" />
+
+
+        </RelativeLayout>
 
 
     </LinearLayout>

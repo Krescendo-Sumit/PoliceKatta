@@ -132,6 +132,6 @@ public interface Api {
     @POST(Constants.INSERT_USER)
     Call<String> insertUser(@Query("name") String name,@Query("mobile") String mobile,@Query("password") String password);
 
-
-
+    @POST(Constants.CHALUGHADAMODI_SUBHEADING_MENU_URL)
+    Call<List<ChaluGhadamodiModel>> getChalughadaModiSubHeadingMenu(@Query("id") String masterid,@Query("mobile") String id);
 }

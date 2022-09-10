@@ -56,6 +56,7 @@ public class MyDb extends SQLiteOpenHelper {
                     "\t`status` TEXT ,\n" +
                     "\t`cdate` TEXT ,\n" +
                     "\t`saravid` INT(11) NOT NULL,\n" +
+                    "\t`imgpath` TEXT,\n" +
                     "\tPRIMARY KEY (`id`)\n" +
                     ")";
             db.execSQL(tbl_saravquestion);
@@ -276,6 +277,7 @@ public class MyDb extends SQLiteOpenHelper {
                 s.setStatus(c.getString(8).trim());
                 s.setCdate(c.getString(9).trim());
                 s.setSaravid(c.getString(10).trim());
+                s.setImgpath(c.getString(11).trim());
                 list.add(s);
                 i++;
 

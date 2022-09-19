@@ -200,7 +200,7 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
 
         String dura=Preferences.get(context, Preferences.LIVESELECTEDPAPERDURATION);
         int ddd=(60*(1000* (Integer.parseInt(dura.trim()))));
-        Toast.makeText(context,""+ddd,Toast.LENGTH_LONG).show();
+      //  Toast.makeText(context,""+ddd,Toast.LENGTH_LONG).show();
         new CountDownTimer(ddd, 1000) {
             public void onTick(long millisUntilFinished) {
                 // Used for formatting digit to be in 2 digits only

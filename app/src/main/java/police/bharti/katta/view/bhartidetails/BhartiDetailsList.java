@@ -20,8 +20,8 @@ CardView card_patrata,card_lekihipariksha,card_maidanichachni,card_pustake,card_
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bharti_details_list);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+//                WindowManager.LayoutParams.FLAG_SECURE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("भरती बद्दल माहिती");
         context=BhartiDetailsList.this;

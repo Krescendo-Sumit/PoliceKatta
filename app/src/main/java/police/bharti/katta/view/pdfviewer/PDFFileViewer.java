@@ -45,8 +45,8 @@ public class PDFFileViewer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);
+    /*    getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_p_d_f_file_viewer);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

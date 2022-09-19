@@ -46,8 +46,8 @@ public class PDFViewForEBook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_view_for_e_book);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);
+   /*     getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         pdfView = findViewById(R.id.idPDFView);
         spinner = findViewById(R.id.spinner);

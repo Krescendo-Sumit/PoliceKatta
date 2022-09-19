@@ -129,8 +129,8 @@ d="1";
 
 
                          //   Preferences.save(context, Preferences.SELECTEDEXAMID, bhartiModel.getId());
-                           // Intent intent = new Intent(context, PDFFileViewer.class);
-                            Intent intent = new Intent(context, ContentViewer.class);
+                            Intent intent = new Intent(context, PDFFileViewer.class);
+                           // Intent intent = new Intent(context, ContentViewer.class);
                             intent.putExtra("fname", bhartiModel.getFilepath());
                             intent.putExtra("data", bhartiModel.getDetails());
                             context.startActivity(intent);

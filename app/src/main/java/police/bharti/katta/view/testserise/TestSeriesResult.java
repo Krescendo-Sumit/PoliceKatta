@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -43,7 +44,7 @@ public class TestSeriesResult extends AppCompatActivity {
         tbl = findViewById(R.id.tbl);
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("प्रतिक्षा करा..");
-        setTitle("टेस्ट सिरीज पेपर");
+        setTitle("अव्वल १० टेस्ट सिरीज रिजल्ट");
         getMenuList();
     }
 
@@ -81,7 +82,7 @@ public class TestSeriesResult extends AppCompatActivity {
                         List<TestSeriesResultModel> saravMenuModels = response.body();
                         try {
 
-                            Toast.makeText(TestSeriesResult.this, "" + saravMenuModels.size(), Toast.LENGTH_LONG).show();
+                         //   Toast.makeText(TestSeriesResult.this, "" + saravMenuModels.size(), Toast.LENGTH_LONG).show();
 
                             if (saravMenuModels != null) {
                                 if (saravMenuModels.size() > 0) {
@@ -95,7 +96,7 @@ public class TestSeriesResult extends AppCompatActivity {
                                     TextView txt_wrong1 = new TextView(context);
                                     TextView txt_unaswer1 = new TextView(context);
 
-                                    txt_date1.setText("Date");
+                                    txt_date1.setText("Student name \n(Date)");
                                     txt_time1.setText("Time");
                                     txt_total1.setText("Total");
                                     txt_correct1.setText("Correct");
@@ -117,7 +118,7 @@ public class TestSeriesResult extends AppCompatActivity {
                                     txt_wrong1.setPadding(5, 5, 5, 5);
                                     txt_unaswer1.setPadding(5, 5, 5, 5);
 
-
+/*
                                     txt_date1.setGravity(Gravity.CENTER);
                                     txt_time1.setGravity(Gravity.CENTER);
                                     txt_total1.setGravity(Gravity.CENTER);
@@ -125,13 +126,13 @@ public class TestSeriesResult extends AppCompatActivity {
                                     txt_wrong1.setGravity(Gravity.CENTER);
                                     txt_unaswer1.setGravity(Gravity.CENTER);
 
-
+*/
                                     row1.addView(txt_date1);
-                                    row1.addView(txt_time1);
-                                    row1.addView(txt_total1);
+                               //     row1.addView(txt_time1);
+                               //     row1.addView(txt_total1);
                                     row1.addView(txt_correct1);
-                                    row1.addView(txt_wrong1);
-                                    row1.addView(txt_unaswer1);
+                                 //   row1.addView(txt_wrong1);
+                                 //   row1.addView(txt_unaswer1);
 
                                     tbl.addView(row1);
 
@@ -154,19 +155,19 @@ public class TestSeriesResult extends AppCompatActivity {
                                         txt_wrong.setText(r.getWrong());
                                         txt_unaswer.setText(r.getUnanswer());
 
-                                        txt_date.setBackgroundResource(R.drawable.bg_overlay);
-                                        txt_time.setBackgroundResource(R.drawable.bg_overlay);
-                                        txt_total.setBackgroundResource(R.drawable.bg_overlay);
-                                        txt_correct.setBackgroundResource(R.drawable.selectedbutton);
-                                        txt_wrong.setBackgroundResource(R.drawable.defaultbutton);
-                                        txt_unaswer.setBackgroundResource(R.drawable.bg_overlay);
-
+                                /*        txt_date.setBackgroundResource(R.drawable.defaulttextbox);
+                                        txt_time.setBackgroundResource(R.drawable.defaulttextbox);
+                                        txt_total.setBackgroundResource(R.drawable.defaulttextbox);
+                                        txt_correct.setBackgroundResource(R.drawable.defaulttextbox);
+                                        txt_wrong.setBackgroundResource(R.drawable.defaulttextbox);
+                                        txt_unaswer.setBackgroundResource(R.drawable.defaulttextbox);
+*/
 
                                         txt_date.setPadding(5, 5, 5, 5);
                                         txt_time.setPadding(5, 5, 5, 5);
                                         txt_total.setPadding(5, 5, 5, 5);
                                         txt_correct.setPadding(5, 5, 5, 5);
-                                        txt_wrong.setPadding(5, 5, 5, 5);
+                                       txt_wrong.setPadding(5, 5, 5, 5);
                                         txt_unaswer.setPadding(5, 5, 5, 5);
 
 
@@ -177,14 +178,15 @@ public class TestSeriesResult extends AppCompatActivity {
                                         txt_correct.setGravity(Gravity.CENTER);
                                         txt_wrong.setGravity(Gravity.CENTER);
                                         txt_unaswer.setGravity(Gravity.CENTER);
-
+                                        txt_correct.setTextSize(25);
+                                        txt_correct.setTypeface(Typeface.DEFAULT_BOLD);
 
                                         row.addView(txt_date);
-                                        row.addView(txt_time);
-                                        row.addView(txt_total);
+                                      //  row.addView(txt_time);
+                                      //  row.addView(txt_total);
                                         row.addView(txt_correct);
-                                        row.addView(txt_wrong);
-                                        row.addView(txt_unaswer);
+                                       // row.addView(txt_wrong);
+                                      //  row.addView(txt_unaswer);
 
                                         tbl.addView(row);
 

@@ -39,8 +39,8 @@ public class ListOfBharti extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_bharti);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);
+ /*       getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         context = ListOfBharti.this;
         recyclerView_bhartilist = (RecyclerView) findViewById(R.id.rc_listofexams);

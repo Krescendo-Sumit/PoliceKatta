@@ -7,12 +7,24 @@
     tools:context=".view.testserise.TestSeriesResult">
 
 
-    <TableLayout
-        android:id="@+id/tbl"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@drawable/ic_baseline_remove_24"
-        android:dividerPadding="10dp"
-        android:showDividers="middle"
-        android:stretchColumns="*" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:id="@+id/tbl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@drawable/ic_baseline_remove_24"
+                android:dividerPadding="10dp"
+                android:showDividers="middle"
+                android:stretchColumns="*" />
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

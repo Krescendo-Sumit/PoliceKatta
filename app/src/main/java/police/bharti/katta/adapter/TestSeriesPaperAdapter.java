@@ -87,7 +87,8 @@ public class TestSeriesPaperAdapter extends  RecyclerView.Adapter<TestSeriesPape
         try {
             TestPaperModel saravMenuModel=bhartiModelArrayList.get(position);
             holder.price.setText(saravMenuModel.getTitle());
-            holder.txt_resultcount.setText(Html.fromHtml("<b>"+saravMenuModel.getResultcnt()+"</b> attempt found."));
+          //  holder.txt_resultcount.setText(Html.fromHtml("<b>"+saravMenuModel.getResultcnt()+"</b> attempt found."));
+            holder.txt_resultcount.setText(Html.fromHtml("<b>Top 1o </b>Results"));
             //holder.txt_details.setText(saravMenuModel.get());
 
             String url= Constants.BASE_URL+saravMenuModel.getImagepath();

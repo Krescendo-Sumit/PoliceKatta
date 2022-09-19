@@ -3,13 +3,13 @@ package police.bharti.katta.util;
 public class Constants {
 
   //  public static final String BASE_URL = "http://192.168.43.164/poilcebhartikatta/";
-    public static final String BASE_URL = "http://pbk.krescendo.co.in/";
+   public static final String BASE_URL = "http://pbk.krescendo.co.in/";
     public static final String MAGIL_PRASHN_PATRIKA_MENU ="getMagilPrashnpatrikaMenu.php" ;
     public static final String MAGIL_PRASHN_PATRIKA_HEADING = "getMagilPrashnpatrikaMenuHeading.php";
     public static final String TEST_SERIES_HEADING_LIST = "getTestSeriesHeadingList.php";
     public static final String LIVE_TEST_HEADING ="getLiveTestHeadingList.php" ;
-  public static final String CHALUGHADAMODI_SUBHEADING_MENU_URL = "getChaluGhdamodiSubHeading.php";
-  static final String getTestUrl="index.php";
+    public static final String CHALUGHADAMODI_SUBHEADING_MENU_URL = "getChaluGhdamodiSubHeading.php";
+    static final String getTestUrl="index.php";
     static final String BHARTI_URL="getBhartiDetails.php";
     static final String BHARTI_URL_INDIVISUAL="getIndivisualBhartiDetails.php";
     static final String SARAV_MENU_URL="getSaravMasterMenu.php";
@@ -36,7 +36,7 @@ public class Constants {
     public static final String INSERT_USER ="insert_user.php" ;
     public static final String CHECK_USER ="check_user.php" ;
     public static final String CHECK_USER_INSTALL ="check_user_installment.php" ;
-    
+
 }
 
 

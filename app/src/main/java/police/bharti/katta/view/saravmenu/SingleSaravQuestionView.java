@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.AlphabeticIndex;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -124,8 +125,7 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
         if (saa.size() == 0) {
             localStatus = 1;
             getMenuList("0");
-        }else
-        {
+        } else {
             showRecords(saa);
         }
 
@@ -134,7 +134,7 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
             SaravQuestionModel model=(SaravQuestionModel)saa.get(0);
             getMenuList(model.getId().toString());
         }*/
-       // Toast.makeText(context, "Local Status is "+localStatus, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(context, "Local Status is "+localStatus, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -174,10 +174,11 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
                         saravMenuModels = response.body();
                         try {
                             //   Toast.makeText(TestSeriesQuestions.this, "Total Questions : "+saravMenuModels.size(), Toast.LENGTH_SHORT).show();
-                          //  addQuestionInList(saravMenuModels);
+                            //  addQuestionInList(saravMenuModels);
 
-                         //   Toast.makeText(context, "s =" + saa.size() + "  live " + saravMenuModels.size(), Toast.LENGTH_SHORT).show();
-                            insertRecords();
+                            //   Toast.makeText(context, "s =" + saa.size() + "  live " + saravMenuModels.size(), Toast.LENGTH_SHORT).show();
+                            new InsertRecords().execute();
+                            // insertRecords();
                        /*     if (localStatus == 1) {
                                 insertRecords();
                                 addQuestionInList(saravMenuModels);
@@ -227,7 +228,7 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
 
             ArrayList sa = s;
             if (sa != null) {
-             //   Toast.makeText(context, "" + sa.size(), Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(context, "" + sa.size(), Toast.LENGTH_SHORT).show();
                 addQuestionInList(sa);
 
             }
@@ -321,12 +322,10 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
             btn_b.setText("" + list_question[cnt].get(2).toString().trim());
             btn_c.setText("" + list_question[cnt].get(3).toString().trim());
             btn_d.setText("" + list_question[cnt].get(4).toString().trim());
-            Log.i("IMG",list_question[cnt].get(9).toString().trim());
-            if(list_question[cnt].get(9).toString().trim().trim().equals(""))
-            {
+            Log.i("IMG", list_question[cnt].get(9).toString().trim());
+            if (list_question[cnt].get(9).toString().trim().trim().equals("")) {
 
-            }else
-            {
+            } else {
                 Glide.with(this)
                         .load(list_question[cnt].get(9).toString().trim())
                         .into(img_question);
@@ -710,34 +709,45 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
 
 
     public void showquery(View view) {
-        SaravQuestionModel model=(SaravQuestionModel)saa.get(0);
+        SaravQuestionModel model = (SaravQuestionModel) saa.get(0);
         getMenuList(model.getId().toString());
 
 
     }
 
-    private void insertRecords() {
+    private String insertRecords() {
         try {
             if (saravMenuModels != null) {
+                String sid = Preferences.get(context, Preferences.SELECTEDSARAVID);
+                new MyDb(context).removeMaster("Delete from tbl_sarav_question3 where  saravid=" + sid);
                 String s = "insert into tbl_sarav_question3 (id,question,opt1,opt2,opt3,opt4,correct,hint,status,cdate,saravid,imgpath) values";
                 String data = " ";
                 for (SaravQuestionModel m : saravMenuModels) {
                     Log.i("Title ", m.getQuestion());
+                    data = "";
+                    s = "insert into tbl_sarav_question3 (id,question,opt1,opt2,opt3,opt4,correct,hint,status,cdate,saravid,imgpath) values";
                     data += "(" + m.getId() + "," +
-                            "'" + m.getQuestion() + "'," +
-                            "'" + m.getOpt1() + "'," +
-                            "'" + m.getOpt2() + "'," +
-                            "'" + m.getOpt3() + "'," +
-                            "'" + m.getOpt4() + "'," +
+                            "'" + m.getQuestion().replace("'", "\'") + "'," +
+                            "'" + m.getOpt1().replace("'", "\'") + "'," +
+                            "'" + m.getOpt2().replace("'", "\'") + "'," +
+                            "'" + m.getOpt3().replace("'", "\'") + "'," +
+                            "'" + m.getOpt4().replace("'", "\'") + "'," +
                             "'" + m.getCorrect() + "'," +
-                            "'" + m.getHint() + "'," +
+                            "'" + m.getHint().replace("'", "\'") + "'," +
                             "'" + m.getStatus() + "'," +
                             "'" + m.getCdate() + "'," +
                             "'" + m.getSaravid() + "'," +
                             "'" + m.getImgpath() + "'" +
                             "),";
+                    s = s + " " + data;
+                    s = s.trim();
+                    s = s.substring(0, s.length() - 1);
+                    if (new MyDb(context).insertQuestion(s)) {
+                        Log.i("Records", "Inserted");
+                        //    Toast.makeText(context, "Record Inserted", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                s = s + " " + data;
+             /*   s = s + " " + data;
                 s = s.trim();
                 s = s.substring(0, s.length() - 1);
                 Log.i("Data is ", data + "\n" + s);
@@ -746,27 +756,27 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
                     Toast.makeText(context, "Record Inserted", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "Getting Error to Insert Bulk Records", Toast.LENGTH_LONG).show();
-                }
+                }*/
+                return "Saved";
 
-                saa = new MyDb(context).getSaravQuestions(Preferences.get(context, Preferences.SELECTEDSARAVID));
-                showRecords(saa);
 
             }
+            return "Not Saved";
         } catch (Exception e) {
-
+            return e.getMessage();
         }
     }
 
     public void showrecordinlist(View v) {
         try {
-       /*     ArrayList s=new MyDb(context).getSaravMaster();
+       /*   ArrayList s=new MyDb(context).getSaravMaster();
             adapter = new SaravQuestionAdapter((ArrayList) s, context);
             rc_listofsaravmenu.setAdapter(adapter);*/
             //Toast.makeText(context, "Entered "+saravMenuModels, Toast.LENGTH_SHORT).show();
 
             ArrayList sa = new MyDb(context).getSaravQuestions(Preferences.get(context, Preferences.SELECTEDSARAVID));
             if (saravMenuModels != null) {
-                Toast.makeText(context, "" + sa.size(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(context, "" + sa.size(), Toast.LENGTH_SHORT).show();
                 addQuestionInList(sa);
             }
 
@@ -775,6 +785,39 @@ public class SingleSaravQuestionView extends AppCompatActivity implements View.O
 
         }
 
+    }
+
+    class InsertRecords extends AsyncTask {
+
+        String string;
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            string = "";
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setTitle("Question Processing......");
+            progressDialog.show();
+
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            string = insertRecords();
+            return string;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            if (o != null)
+                Toast.makeText(context, "Result :" + o.toString(), Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            saa = new MyDb(context).getSaravQuestions(Preferences.get(context, Preferences.SELECTEDSARAVID));
+            showRecords(saa);
+        }
     }
 
 

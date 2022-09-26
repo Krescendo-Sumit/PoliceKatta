@@ -20,9 +20,9 @@ public class Constants {
     static final String GET_EBOOK_URL="get_e_book.php";
     static final String CHALUGHADAMODI_MENU_URL="getChaluGhadamodiMasterMenu.php";
     public static final String GET_BOOKS_LIST ="getBooks.php" ;
-    public static final String GETTESTQUESTION ="getTestSeriesQuestionPaperAnswer.php" ;
-    public static final String IMPORTANT_NOTES_URL ="getImportantNoteMenu.php" ;
-    public static final String IMPORTANT_NOTES_ITEM_URL ="getImportantNotesItems.php" ;
+    public static final String GETTESTQUESTION ="getTestSeriesQuestionPaperAnswer.php";
+    public static final String IMPORTANT_NOTES_URL ="getImportantNoteMenu.php";
+    public static final String IMPORTANT_NOTES_ITEM_URL ="getImportantNotesItems.php";
     public static final String GET_YASHOGATHA ="getYashoGatha.php" ;
     public static final String MAGIL_PRASHN_PATRIKA ="getMagilPrashnPatrika.php" ;
     public static final String BATCH_MASTER ="getVideoBatchMaster.php" ;

@@ -4,6 +4,7 @@ package police.bharti.katta.view.testserise;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -49,7 +50,7 @@ import retrofit2.Response;
 public class TestSeriesQuestions extends AppCompatActivity implements View.OnClickListener {
     int cnt = 0;
     ArrayList list_question[];
-    Button btn_a, btn_b, btn_c, btn_d;
+    TextView btn_a, btn_b, btn_c, btn_d;
     TextView question_number;
     TextView txt_timmer, txt_total, txt_answer, txt_unanser;
     Button btn_submit;
@@ -398,7 +399,34 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
                         try {
                             String saravMenuModels = response.body();
                             Toast.makeText(context, ""+saravMenuModels, Toast.LENGTH_SHORT).show();
-                            finish();
+
+                            Dialog dialog=new Dialog(context);
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                            dialog.setContentView(R.layout.scorecard);
+                            dialog.setCanceledOnTouchOutside(false);
+                            TextView txt_total,txt_correct,txt_wrong,txt_percentage;
+                            Button btn_ok;
+                            txt_total=dialog.findViewById(R.id.txt_total);
+                            txt_correct=dialog.findViewById(R.id.txt_correct);
+                            txt_wrong=dialog.findViewById(R.id.txt_wrong);
+                            txt_percentage=dialog.findViewById(R.id.txt_percentage);
+                            btn_ok=dialog.findViewById(R.id.btn_ok);
+
+                             float per=((100*correct)/total);
+
+                             txt_correct.setText(""+correct);
+                             txt_wrong.setText(""+wrong);
+                             txt_total.setText(""+total);
+                            txt_percentage.setText(""+per+" %");
+
+                            btn_ok.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    finish();
+                                }
+                            });
+                            dialog.show();
+                            //finish();
                         } catch (NullPointerException e) {
                             Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {

@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -33,6 +34,7 @@ import police.bharti.katta.adapter.LiveTestPaperAdapter;
 import police.bharti.katta.model.LiveTestModel;
 import police.bharti.katta.model.LiveTestQuestionModel;
 import police.bharti.katta.model.LiveTestQuestionModel;
+import police.bharti.katta.model.TestSeriesQuestionModel;
 import police.bharti.katta.util.Constants;
 import police.bharti.katta.util.Preferences;
 import police.bharti.katta.util.RetrofitClient;
@@ -44,7 +46,7 @@ import retrofit2.Response;
 public class LiveTestQuestion extends AppCompatActivity implements View.OnClickListener {
     int cnt = 0;
     ArrayList list_question[];
-    Button btn_a, btn_b, btn_c, btn_d;
+    TextView btn_a, btn_b, btn_c, btn_d;
     TextView question_number;
     TextView txt_timmer, txt_total, txt_answer, txt_unanser;
     Button btn_submit;
@@ -65,30 +67,23 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
     int unanswered = 0;
     int wrong = 0;
     int total = 0;
+    TextView txt_question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_test_question);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        context = LiveTestQuestion.this;
+        context=LiveTestQuestion.this;
         init();
 
-        filename = Preferences.get(context, Preferences.LIVESELECTEDPAPERFILE);
-        pdfurl = Constants.BASE_URL + "livetest/" + filename;
-        Log.i("File URl is ", pdfurl);
+        filename=Preferences.get(context,Preferences.SELECTEDPAPERFILE);
+        pdfurl= Constants.BASE_URL+"livetest/"+filename;
+        Log.i("File URl is ",pdfurl);
 
-        UrlRender = new RetrivePDFfromUrl();
-        UrlRender.execute(pdfurl);
-
-
-
-
-
+        UrlRender=new RetrivePDFfromUrl();
+      //  UrlRender.execute(pdfurl);
     }
-
 
     private void init() {
         cnt = 0;
@@ -96,6 +91,7 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
         btn_b = findViewById(R.id.btn_b);
         btn_c = findViewById(R.id.btn_c);
         btn_d = findViewById(R.id.btn_d);
+        txt_question= findViewById(R.id.txt_question);
         btn_submit = findViewById(R.id.btn_submit);
 
         question_number = findViewById(R.id.txt_question_no);
@@ -114,11 +110,26 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
 
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("प्रतिक्षा करा..");
-        setTitle("टेस्ट सिरीज प्रश्न");
+        setTitle("Live Test Paper");
 
         getMenuList();
-    }
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+
+        if (id == android.R.id.home) {
+            // app icon in action bar clicked; goto parent activity.
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void getMenuList() {
         try {
             if (!progressDialog.isShowing())
@@ -128,7 +139,7 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
             String id = Preferences.get(context, Preferences.LIVESELECTEDPAPERID);
             String type = "1";
 
-            Call<List<LiveTestQuestionModel>> call = RetrofitClient.getInstance().getMyApi().getLivePaperQuestion(mobile, id, type);
+            Call<List<LiveTestQuestionModel>> call = RetrofitClient.getInstance().getMyApi().getLivePaperQuestion(mobile,id,type);
             call.enqueue(new Callback<List<LiveTestQuestionModel>>() {
                 @Override
                 public void onResponse(Call<List<LiveTestQuestionModel>> call, Response<List<LiveTestQuestionModel>> response) {
@@ -136,7 +147,7 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
                     if (progressDialog.isShowing())
                         progressDialog.dismiss();
                     //   Toast.makeText(context, "Size is " + response.body().size(), Toast.LENGTH_SHORT).show();
-                    if (response.body() != null) {
+                    if(response.body()!=null) {
                         List<LiveTestQuestionModel> saravMenuModels = response.body();
                         try {
                             //   Toast.makeText(TestSeriesQuestions.this, "Total Questions : "+saravMenuModels.size(), Toast.LENGTH_SHORT).show();
@@ -148,11 +159,10 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
                         } catch (Exception e) {
                             Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
-                    } else {
+                    }else{
                         Toast.makeText(context, "माहिती उपलब्ध नाही.", Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<List<LiveTestQuestionModel>> call, Throwable t) {
                     if (progressDialog.isShowing())
@@ -165,7 +175,6 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
 
         }
     }
-
     private void addQuestionInList(List<LiveTestQuestionModel> saravMenuModels) {
         cnt = 0;
         list_question = new ArrayList[saravMenuModels.size()];
@@ -173,14 +182,22 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
             list_question[i] = new ArrayList();
         }
         for (int i = 0; i < saravMenuModels.size(); i++) {
-            list_question[i].add(saravMenuModels.get(i).getQuestionno());  // Question number
-            list_question[i].add(saravMenuModels.get(i).getAns());  // Correct Option
-            list_question[i].add(0);
+            list_question[i].add(saravMenuModels.get(i).getQuestionno());  // 0 Question number
+            list_question[i].add(saravMenuModels.get(i).getAns());  // 1 Correct Option
+            list_question[i].add(0);                                //2
+            list_question[i].add(saravMenuModels.get(i).getQuestion()); //3
+            list_question[i].add(saravMenuModels.get(i).getOpt1());//4
+            list_question[i].add(saravMenuModels.get(i).getOpt2());//5
+            list_question[i].add(saravMenuModels.get(i).getOpt3());//6
+            list_question[i].add(saravMenuModels.get(i).getOpt4());//7
+
         }
         //  Toast.makeText(context, "After List : "+list_question.length, Toast.LENGTH_SHORT).show();
 
-       String dura=Preferences.get(context, Preferences.LIVESELECTEDPAPERDURATION);
-        new CountDownTimer(10000 * (Integer.parseInt(dura.trim())), 1000) {
+        String dura=Preferences.get(context, Preferences.LIVESELECTEDPAPERDURATION);
+        int ddd=(60*(1000* (Integer.parseInt(dura.trim()))));
+        //  Toast.makeText(context,""+ddd,Toast.LENGTH_LONG).show();
+        new CountDownTimer(ddd, 1000) {
             public void onTick(long millisUntilFinished) {
                 // Used for formatting digit to be in 2 digits only
                 NumberFormat f = new DecimalFormat("00");
@@ -217,6 +234,7 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
         try {
 
             question_number.setText("Q.  " + (cnt + 1));
+
             showListElements();
             //     Toast.makeText(context, ""+list_question[cnt].size(), Toast.LENGTH_SHORT).show();
             int temp = Integer.parseInt(list_question[cnt].get(2).toString().trim());
@@ -224,6 +242,12 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
                 highlightButton(temp);
             else
                 highlightButton(0);
+
+            txt_question.setText(""+list_question[cnt].get(3).toString().trim());
+            btn_a.setText(""+list_question[cnt].get(4).toString().trim());
+            btn_b.setText(""+list_question[cnt].get(5).toString().trim());
+            btn_c.setText(""+list_question[cnt].get(6).toString().trim());
+            btn_d.setText(""+list_question[cnt].get(7).toString().trim());
 
         } catch (Exception e) {
             Log.i("Error is 1234", e.getMessage());
@@ -274,7 +298,7 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
                 highlightButton(4);
                 break;
             case R.id.btn_submit:
-             //   Toast.makeText(context, "Correct : "+correct+" \n Wrong :"+wrong, Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(context, "Correct : "+correct+" \n Wrong :"+wrong, Toast.LENGTH_SHORT).show();
                 Submit();
 
                 break;
@@ -369,7 +393,7 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
 
                         try {
                             String saravMenuModels = response.body();
-                            Toast.makeText(LiveTestQuestion.this, ""+saravMenuModels, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, ""+saravMenuModels, Toast.LENGTH_SHORT).show();
                             finish();
                         } catch (NullPointerException e) {
                             Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -459,6 +483,7 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
     }
 
 
+
     class RetrivePDFfromUrl extends AsyncTask<String, Void, InputStream> {
         @Override
         protected void onPreExecute() {
@@ -504,12 +529,11 @@ public class LiveTestQuestion extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        try {
+        try{
             UrlRender.cancel(true);
-        } catch (Exception e) {
+        }catch (Exception e)
+        {
 
         }
     }
-
-
 }

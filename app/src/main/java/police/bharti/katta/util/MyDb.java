@@ -120,7 +120,7 @@ public class MyDb extends SQLiteOpenHelper {
 
         SQLiteDatabase mydb = null;
         try {
-            removeMaster("Delete from tbl_sarav_question3");
+           // removeMaster("Delete from tbl_sarav_question3");
             mydb = this.getReadableDatabase();
             String q = query;
             Log.i("Query is -------> ", "" + q);
@@ -211,7 +211,7 @@ public class MyDb extends SQLiteOpenHelper {
         try {
 
             mydb = this.getReadableDatabase();
-            String q = "SELECT  * FROM tbl_saravprashn_master";
+            String q = "SELECT  * FROM tbl_saravprashn_master order by status asc";
             Cursor c = mydb.rawQuery(q, null);
             while (c.moveToNext()) {
                 ++i;

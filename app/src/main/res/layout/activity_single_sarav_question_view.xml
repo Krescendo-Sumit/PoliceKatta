@@ -80,7 +80,7 @@
                         android:fontFamily="@font/quickbold"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="0/20"
+                        android:text="-/-"
                         android:textColor="#00838F"
                         android:textSize="24sp" />
 

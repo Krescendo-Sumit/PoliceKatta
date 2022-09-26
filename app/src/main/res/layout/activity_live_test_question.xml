@@ -7,6 +7,13 @@
     tools:context=".view.livetest.LiveTestQuestion">
 
 
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/idPDFView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+    </com.github.barteksc.pdfviewer.PDFView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,8 +54,7 @@
                                 android:id="@+id/textView2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Time Remain" />
+                                android:gravity="center" />
 
                             <TextView
                                 android:id="@+id/txt_timmer"
@@ -56,7 +62,6 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/colabbold"
                                 android:gravity="center"
-                                android:text="01 Hr : 20 Min : 23 Sec."
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -114,7 +119,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="serif"
                         android:gravity="center"
-                        android:text="10"
+                        android:text="0"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -142,7 +147,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="serif"
                         android:gravity="center"
-                        android:text="4"
+                        android:text="0"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -171,7 +176,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="serif"
                         android:gravity="center"
-                        android:text="6"
+                        android:text="0"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -182,13 +187,103 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6"
-            android:orientation="vertical">
+            android:layout_weight="7"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <com.github.barteksc.pdfviewer.PDFView
-                android:id="@+id/idPDFView"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/txt_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quickbold"
+                        android:gravity="center|left"
+                        android:padding="5dp"
+                        android:text="-"
+                        android:textColor="#070707"
+                        android:textSize="24sp" />
+
+                    <ImageView
+                        android:id="@+id/img_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/btn_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/defaultbutton"
+                        android:gravity="center|left"
+                        android:padding="15dp"
+                        android:text="-"
+                        android:textColor="#000000"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/btn_b"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/defaultbutton"
+                        android:gravity="center|left"
+                        android:padding="15dp"
+                        android:text="-"
+                        android:textColor="#000000"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/btn_c"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/defaultbutton"
+                        android:gravity="center|left"
+                        android:padding="15dp"
+                        android:text="-"
+                        android:textColor="#000000"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/textView152"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/btn_d"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/defaultbutton"
+                        android:gravity="center|left"
+                        android:padding="15dp"
+                        android:text="-"
+                        android:textColor="#000000"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+            </ScrollView>
 
 
         </LinearLayout>
@@ -196,107 +291,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:background="@drawable/outline"
                 android:orientation="vertical"
                 android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:padding="5dp">
-
-                            <Button
-                                android:id="@+id/btn_a"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:background="@drawable/defaultbutton"
-                                android:text="A"
-                                android:textColor="#171919"
-                                android:textSize="18sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:padding="5dp">
-
-                            <Button
-                                android:id="@+id/btn_b"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:background="@drawable/defaultbutton"
-                                android:text="B"
-                                android:textColor="#171919"
-                                android:textSize="18sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:padding="5dp">
-
-                            <Button
-                                android:id="@+id/btn_c"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:background="@drawable/defaultbutton"
-                                android:text="C"
-                                android:textColor="#171919"
-                                android:textSize="18sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:padding="5dp">
-
-                            <Button
-                                android:id="@+id/btn_d"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:background="@drawable/defaultbutton"
-                                android:text="D"
-                                android:textColor="#171919"
-                                android:textSize="18sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -309,17 +316,19 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="bottom"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="1dp">
 
                             <Button
                                 android:id="@+id/button8"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="#00000000"
+                                android:background="@drawable/buttons"
                                 android:drawableLeft="@drawable/ic_prev"
                                 android:onClick="previous"
                                 android:text="Prev"
-                                android:textColor="#090909" />
+                                android:textColor="#090909"
+                                android:textSize="12sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -342,31 +351,32 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="bottom"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="1dp">
 
                             <Button
                                 android:id="@+id/button9"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="#00000000"
+                                android:background="@drawable/buttons"
                                 android:drawableRight="@drawable/ic_next"
                                 android:onClick="next"
                                 android:text="next"
-                                android:textColor="#090909" />
+                                android:textColor="#090909"
+                                android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textView10"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="टीप: वरील प्रश्न बघून यातील एक पर्याय निवडावा." />
                 </LinearLayout>

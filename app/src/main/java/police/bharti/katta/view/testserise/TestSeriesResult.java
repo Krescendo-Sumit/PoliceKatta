@@ -1,6 +1,8 @@
 package police.bharti.katta.view.testserise;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import police.bharti.katta.R;
+import police.bharti.katta.adapter.TestSeriesHeadingAdapter;
 import police.bharti.katta.adapter.TestSeriesPaperAdapter;
+import police.bharti.katta.adapter.TestSeriesResultAdapter;
 import police.bharti.katta.model.TestPaperModel;
 import police.bharti.katta.model.TestSeriesResultModel;
 import police.bharti.katta.util.Preferences;
@@ -32,7 +36,9 @@ public class TestSeriesResult extends AppCompatActivity {
     Context context;
     ProgressDialog progressDialog;
     TableLayout tbl;
-
+    TestSeriesResultAdapter adapter;
+    RecyclerView rc_list;
+    LinearLayoutManager mManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +48,9 @@ public class TestSeriesResult extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         context = TestSeriesResult.this;
         tbl = findViewById(R.id.tbl);
+        rc_list = (RecyclerView) findViewById(R.id.rc_list);
+        mManager = new LinearLayoutManager(context);
+        rc_list.setLayoutManager(mManager);
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("प्रतिक्षा करा..");
         setTitle("अव्वल १० टेस्ट सिरीज रिजल्ट");
@@ -84,7 +93,15 @@ public class TestSeriesResult extends AppCompatActivity {
 
                          //   Toast.makeText(TestSeriesResult.this, "" + saravMenuModels.size(), Toast.LENGTH_LONG).show();
 
-                            if (saravMenuModels != null) {
+                            if (saravMenuModels != null || saravMenuModels.size() > 0) {
+                                adapter = new TestSeriesResultAdapter((ArrayList) saravMenuModels, context);
+                                rc_list.setAdapter(adapter);
+                            } else {
+                                Toast.makeText(context, "माहिती उपलब्ध नाही.", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                       /*     if (saravMenuModels != null) {
                                 if (saravMenuModels.size() > 0) {
                                     tbl.removeAllViews();
 
@@ -103,12 +120,12 @@ public class TestSeriesResult extends AppCompatActivity {
                                     txt_wrong1.setText("Wrong");
                                     txt_unaswer1.setText("UnAns");
 
-                                    txt_date1.setBackgroundResource(R.drawable.bg_overlay);
-                                    txt_time1.setBackgroundResource(R.drawable.bg_overlay);
-                                    txt_total1.setBackgroundResource(R.drawable.bg_overlay);
-                                    txt_correct1.setBackgroundResource(R.drawable.bg_overlay);
-                                    txt_wrong1.setBackgroundResource(R.drawable.bg_overlay);
-                                    txt_unaswer1.setBackgroundResource(R.drawable.bg_overlay);
+                                    txt_date1.setBackgroundResource(R.drawable.shape);
+                                    txt_time1.setBackgroundResource(R.drawable.shape);
+                                    txt_total1.setBackgroundResource(R.drawable.shape);
+                                    txt_correct1.setBackgroundResource(R.drawable.shape);
+                                    txt_wrong1.setBackgroundResource(R.drawable.shape);
+                                    txt_unaswer1.setBackgroundResource(R.drawable.shape);
 
 
                                     txt_date1.setPadding(5, 5, 5, 5);
@@ -118,7 +135,7 @@ public class TestSeriesResult extends AppCompatActivity {
                                     txt_wrong1.setPadding(5, 5, 5, 5);
                                     txt_unaswer1.setPadding(5, 5, 5, 5);
 
-/*
+*//*
                                     txt_date1.setGravity(Gravity.CENTER);
                                     txt_time1.setGravity(Gravity.CENTER);
                                     txt_total1.setGravity(Gravity.CENTER);
@@ -126,7 +143,7 @@ public class TestSeriesResult extends AppCompatActivity {
                                     txt_wrong1.setGravity(Gravity.CENTER);
                                     txt_unaswer1.setGravity(Gravity.CENTER);
 
-*/
+*//*
                                     row1.addView(txt_date1);
                                //     row1.addView(txt_time1);
                                //     row1.addView(txt_total1);
@@ -155,13 +172,13 @@ public class TestSeriesResult extends AppCompatActivity {
                                         txt_wrong.setText(r.getWrong());
                                         txt_unaswer.setText(r.getUnanswer());
 
-                                /*        txt_date.setBackgroundResource(R.drawable.defaulttextbox);
-                                        txt_time.setBackgroundResource(R.drawable.defaulttextbox);
-                                        txt_total.setBackgroundResource(R.drawable.defaulttextbox);
-                                        txt_correct.setBackgroundResource(R.drawable.defaulttextbox);
-                                        txt_wrong.setBackgroundResource(R.drawable.defaulttextbox);
-                                        txt_unaswer.setBackgroundResource(R.drawable.defaulttextbox);
-*/
+                                       txt_date.setBackgroundResource(R.drawable.shape);
+                                        txt_time.setBackgroundResource(R.drawable.shape);
+                                        txt_total.setBackgroundResource(R.drawable.shape);
+                                        txt_correct.setBackgroundResource(R.drawable.shape);
+                                        txt_wrong.setBackgroundResource(R.drawable.shape);
+                                        txt_unaswer.setBackgroundResource(R.drawable.shape);
+
 
                                         txt_date.setPadding(5, 5, 5, 5);
                                         txt_time.setPadding(5, 5, 5, 5);
@@ -178,12 +195,14 @@ public class TestSeriesResult extends AppCompatActivity {
                                         txt_correct.setGravity(Gravity.CENTER);
                                         txt_wrong.setGravity(Gravity.CENTER);
                                         txt_unaswer.setGravity(Gravity.CENTER);
-                                        txt_correct.setTextSize(25);
+                                       // txt_correct.setTextSize(25);
                                         txt_correct.setTypeface(Typeface.DEFAULT_BOLD);
+
 
                                         row.addView(txt_date);
                                       //  row.addView(txt_time);
                                       //  row.addView(txt_total);
+                                        txt_correct.setGravity(Gravity.CENTER);
                                         row.addView(txt_correct);
                                        // row.addView(txt_wrong);
                                       //  row.addView(txt_unaswer);
@@ -197,7 +216,7 @@ public class TestSeriesResult extends AppCompatActivity {
                                 }
                             }
 
-
+*/
                         } catch (Exception e) {
                             Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }

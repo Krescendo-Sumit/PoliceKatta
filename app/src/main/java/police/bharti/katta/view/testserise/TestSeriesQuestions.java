@@ -72,7 +72,8 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
     int wrong = 0;
     int total = 0;
     TextView txt_question;
-
+    boolean isTestSubmitted=false;
+    CountDownTimer cDT;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -202,7 +203,7 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
         String dura=Preferences.get(context, Preferences.LIVESELECTEDPAPERDURATION);
         int ddd=(60*(1000* (Integer.parseInt(dura.trim()))));
       //  Toast.makeText(context,""+ddd,Toast.LENGTH_LONG).show();
-        new CountDownTimer(ddd, 1000) {
+       cDT= new CountDownTimer(ddd, 1000) {
             public void onTick(long millisUntilFinished) {
                 // Used for formatting digit to be in 2 digits only
                 NumberFormat f = new DecimalFormat("00");
@@ -242,7 +243,9 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
 
             showListElements();
             //     Toast.makeText(context, ""+list_question[cnt].size(), Toast.LENGTH_SHORT).show();
+
             int temp = Integer.parseInt(list_question[cnt].get(2).toString().trim());
+
             if (temp != 0)
                 highlightButton(temp);
             else
@@ -253,6 +256,61 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
             btn_b.setText(""+list_question[cnt].get(5).toString().trim());
             btn_c.setText(""+list_question[cnt].get(6).toString().trim());
             btn_d.setText(""+list_question[cnt].get(7).toString().trim());
+            txt_timmer.setTextColor(Color.BLACK);
+            txt_timmer.setText("");
+       /*     if (Integer.parseInt(list_question[cnt].get(2).toString().trim()) == 0) {
+               // unanswered++;
+                if(isTestSubmitted) {
+                    txt_timmer.setText("UA");
+
+
+                }
+            } else*/ if (Integer.parseInt(list_question[cnt].get(1).toString().trim()) == Integer.parseInt(list_question[cnt].get(2).toString().trim())) {
+               // correct++;
+                if(isTestSubmitted){
+                    txt_timmer.setText("Correct");
+                    txt_timmer.setTextColor(Color.GREEN);
+                }
+            } else {
+                //wrong++;
+                if(isTestSubmitted) {
+                    txt_timmer.setText("Wrong");
+                    txt_timmer.setTextColor(Color.RED);
+                }
+            }
+            if(isTestSubmitted)
+            {
+                switch (Integer.parseInt(list_question[cnt].get(2).toString().trim()))
+                {
+                    case 1:
+                        btn_a.setBackgroundResource(R.drawable.selectedbutton);
+                        break;
+                    case 2:
+                        btn_b.setBackgroundResource(R.drawable.selectedbutton);
+                        break;
+                    case 3:
+                        btn_c.setBackgroundResource(R.drawable.selectedbutton);
+                        break;
+                    case 4:
+                        btn_d.setBackgroundResource(R.drawable.selectedbutton);
+                        break;
+                }
+                switch (Integer.parseInt(list_question[cnt].get(1).toString().trim()))
+                {
+                    case 1:
+                        btn_a.setBackgroundResource(R.drawable.correctansbutton);
+                        break;
+                    case 2:
+                        btn_b.setBackgroundResource(R.drawable.correctansbutton);
+                        break;
+                    case 3:
+                        btn_c.setBackgroundResource(R.drawable.correctansbutton);
+                        break;
+                    case 4:
+                        btn_d.setBackgroundResource(R.drawable.correctansbutton);
+                        break;
+                }
+            }
 
         } catch (Exception e) {
             Log.i("Error is 1234", e.getMessage());
@@ -385,7 +443,8 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
             progressDialog.setCanceledOnTouchOutside(false);
             if (!progressDialog.isShowing())
                 progressDialog.show();
-
+             if(cDT!=null)
+                cDT.cancel();
             Call<String> call = RetrofitClient.getInstance().getMyApi().submitTestSeriesResult(Preferences.get(context,Preferences.SELECTEDPAPERID).toString(),Preferences.get(context,Preferences.USER_MOBILE).toString(),""+correct,""+total,""+unanswered,""+wrong);
             call.enqueue(new Callback<String>() {
                 @Override
@@ -399,27 +458,41 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
                         try {
                             String saravMenuModels = response.body();
                             Toast.makeText(context, ""+saravMenuModels, Toast.LENGTH_SHORT).show();
-
+                            btn_submit.setVisibility(View.GONE);
+                         //   txt_timmer.setVisibility(View.GONE);
+                            isTestSubmitted=true;
                             Dialog dialog=new Dialog(context);
                             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                             dialog.setContentView(R.layout.scorecard);
                             dialog.setCanceledOnTouchOutside(false);
                             TextView txt_total,txt_correct,txt_wrong,txt_percentage;
-                            Button btn_ok;
+                            Button btn_ok,btn_finish;
                             txt_total=dialog.findViewById(R.id.txt_total);
                             txt_correct=dialog.findViewById(R.id.txt_correct);
                             txt_wrong=dialog.findViewById(R.id.txt_wrong);
                             txt_percentage=dialog.findViewById(R.id.txt_percentage);
                             btn_ok=dialog.findViewById(R.id.btn_ok);
+                            btn_finish=dialog.findViewById(R.id.btn_finish);
 
                              float per=((100*correct)/total);
 
                              txt_correct.setText(""+correct);
                              txt_wrong.setText(""+wrong);
                              txt_total.setText(""+total);
-                            txt_percentage.setText(""+per+" %");
+                             txt_percentage.setText(""+per+" %");
 
                             btn_ok.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    Log.i("Questions",""+list_question.toString());
+                                    //finish();
+                                     //    cnt=0;
+                                       //  showQuestion(cnt);
+
+                                }
+                            });
+                            btn_finish.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     finish();
@@ -452,41 +525,47 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
     }
 
     private void highlightButton(int i) {
+       if(isTestSubmitted==false) {
+           switch (i) {
+               case 0:
+                   btn_a.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_b.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_c.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_d.setBackgroundResource(R.drawable.defaultbutton);
+                   break;
+               case 1:
+                   btn_a.setBackgroundResource(R.drawable.selectedbutton);
+                   btn_b.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_c.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_d.setBackgroundResource(R.drawable.defaultbutton);
+                   break;
+               case 2:
+                   btn_a.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_b.setBackgroundResource(R.drawable.selectedbutton);
+                   btn_c.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_d.setBackgroundResource(R.drawable.defaultbutton);
+                   break;
+               case 3:
+                   btn_a.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_b.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_c.setBackgroundResource(R.drawable.selectedbutton);
+                   btn_d.setBackgroundResource(R.drawable.defaultbutton);
+                   break;
+               case 4:
+                   btn_a.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_b.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_c.setBackgroundResource(R.drawable.defaultbutton);
+                   btn_d.setBackgroundResource(R.drawable.selectedbutton);
+                   break;
 
-        switch (i) {
-            case 0:
-                btn_a.setBackgroundResource(R.drawable.defaultbutton);
-                btn_b.setBackgroundResource(R.drawable.defaultbutton);
-                btn_c.setBackgroundResource(R.drawable.defaultbutton);
-                btn_d.setBackgroundResource(R.drawable.defaultbutton);
-                break;
-            case 1:
-                btn_a.setBackgroundResource(R.drawable.selectedbutton);
-                btn_b.setBackgroundResource(R.drawable.defaultbutton);
-                btn_c.setBackgroundResource(R.drawable.defaultbutton);
-                btn_d.setBackgroundResource(R.drawable.defaultbutton);
-                break;
-            case 2:
-                btn_a.setBackgroundResource(R.drawable.defaultbutton);
-                btn_b.setBackgroundResource(R.drawable.selectedbutton);
-                btn_c.setBackgroundResource(R.drawable.defaultbutton);
-                btn_d.setBackgroundResource(R.drawable.defaultbutton);
-                break;
-            case 3:
-                btn_a.setBackgroundResource(R.drawable.defaultbutton);
-                btn_b.setBackgroundResource(R.drawable.defaultbutton);
-                btn_c.setBackgroundResource(R.drawable.selectedbutton);
-                btn_d.setBackgroundResource(R.drawable.defaultbutton);
-                break;
-            case 4:
-                btn_a.setBackgroundResource(R.drawable.defaultbutton);
-                btn_b.setBackgroundResource(R.drawable.defaultbutton);
-                btn_c.setBackgroundResource(R.drawable.defaultbutton);
-                btn_d.setBackgroundResource(R.drawable.selectedbutton);
-                break;
-
-        }
-
+           }
+       }else
+       {
+           btn_a.setBackgroundResource(R.drawable.defaultbutton);
+           btn_b.setBackgroundResource(R.drawable.defaultbutton);
+           btn_c.setBackgroundResource(R.drawable.defaultbutton);
+           btn_d.setBackgroundResource(R.drawable.defaultbutton);
+       }
 
     }
 
@@ -494,21 +573,27 @@ public class TestSeriesQuestions extends AppCompatActivity implements View.OnCli
         try {
             total = wrong = unanswered = correct = 0;
             total = list_question.length;
-            //Toast.makeText(this, "Length "+list_question.length, Toast.LENGTH_SHORT).show();
+
+
             for (ArrayList a : list_question) {
                 Log.i("Elemements", a.toString() + "  " + a.get(0) + " = " + a.get(2));
                 if (Integer.parseInt(a.get(2).toString().trim()) == 0) {
                     unanswered++;
+
                 } else if (Integer.parseInt(a.get(1).toString().trim()) == Integer.parseInt(a.get(2).toString().trim())) {
                     correct++;
+
                 } else {
                     wrong++;
+
                 }
             }
-            txt_answer.setText("" + (total - unanswered));
-            txt_total.setText("" + total);
-            txt_unanser.setText("" + unanswered);
+            if(isTestSubmitted==false) {
 
+                txt_answer.setText("" + (total - unanswered));
+                txt_total.setText("" + total);
+                txt_unanser.setText("" + unanswered);
+            }
         } catch (Exception r) {
 
         }

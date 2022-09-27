@@ -6,10 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".view.testserise.TestSeriesResult">
 
-
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#F8F5F5"
+        android:layoutAnimation="@anim/layout_animation"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,11 +25,11 @@
             <TableLayout
                 android:id="@+id/tbl"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@drawable/ic_baseline_remove_24"
-                android:dividerPadding="10dp"
-                android:showDividers="middle"
-                android:stretchColumns="*" />
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:shrinkColumns="*"
+                android:weightSum="2"
+                />
         </LinearLayout>
     </ScrollView>
 
